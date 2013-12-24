@@ -1,6 +1,6 @@
 package it.polimi.dmw.cac.explore.rest;
 
-import it.polimi.dmw.cac.explore.rest.post.ReviewRequest;
+import it.polimi.dmw.cac.explore.request.ReviewRequest;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
