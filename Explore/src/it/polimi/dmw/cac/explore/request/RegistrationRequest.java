@@ -1,4 +1,4 @@
-package it.polimi.dmw.cac.explore.rest.post;
+package it.polimi.dmw.cac.explore.request;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

@@ -1,7 +1,7 @@
 package it.polimi.dmw.cac.explore.rest;
 
-import it.polimi.dmw.cac.explore.rest.post.LoginRequest;
-import it.polimi.dmw.cac.explore.rest.post.RegistrationRequest;
+import it.polimi.dmw.cac.explore.request.LoginRequest;
+import it.polimi.dmw.cac.explore.request.RegistrationRequest;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
