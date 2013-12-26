@@ -1,5 +1,8 @@
 package it.polimi.dmw.cac.explore.details;
 
+import it.polimi.dmw.cac.explore.model.Exhibition;
+import it.polimi.dmw.cac.explore.model.User;
+
 import javax.xml.bind.annotation.XmlElement;
 
 public class ExhibitionDetails extends Details {
@@ -11,6 +14,14 @@ public class ExhibitionDetails extends Details {
     private int grade;
     private boolean reviewable;
     private Boolean visited;
+
+    public ExhibitionDetails() {
+
+    }
+
+    public ExhibitionDetails(Exhibition exhibition, User requestor) {
+        // TODO Auto-generated constructor stub
+    }
 
     @XmlElement(name = "id")
     public String getId() {
