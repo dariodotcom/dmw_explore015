@@ -2,6 +2,8 @@ package it.polimi.dmw.cac.explore.controller.builder;
 
 import org.slim3.datastore.Datastore;
 
+import com.google.appengine.api.datastore.Key;
+
 import it.polimi.dmw.cac.explore.model.CheckIn;
 import it.polimi.dmw.cac.explore.model.Exhibition;
 import it.polimi.dmw.cac.explore.model.User;

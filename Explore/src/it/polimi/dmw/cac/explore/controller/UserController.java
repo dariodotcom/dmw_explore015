@@ -50,4 +50,8 @@ public class UserController {
     public UserDetails getDetails() {
         return new UserDetails(entity);
     }
+
+    /* package */User getEntity() {
+        return entity;
+    }
 }
