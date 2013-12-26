@@ -14,6 +14,6 @@ public class ControllerException extends Exception {
     }
 
     public static enum Type {
-        DUPLICATE_ENTITY, MISSING_ENTITY, WRONG_PASSWORD, MISSING_PARAMETER, BAD_REQUEST
+        DUPLICATE_ENTITY, MISSING_ENTITY, WRONG_PASSWORD, MISSING_PARAMETER, BAD_REQUEST, LOGIN_REQUIRED
     }
 }

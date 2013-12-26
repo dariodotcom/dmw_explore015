@@ -23,6 +23,7 @@ public class Review implements Serializable {
                 "authorRef",
                 this);
         authorRef = new ModelRef<User>(User.class);
+        exhibitionRef = new ModelRef<Exhibition>(Exhibition.class);
     }
 
     @Attribute(primaryKey = true)
@@ -39,6 +40,7 @@ public class Review implements Serializable {
     private InverseModelListRef<Appreciation, Review> appreciationsRef;
 
     private ModelRef<User> authorRef;
+    private ModelRef<Exhibition> exhibitionRef;
 
     public Key getKey() {
         return key;
@@ -96,6 +98,18 @@ public class Review implements Serializable {
         authorRef.setModel(author);
     }
 
+    public Exhibition getExhibition() {
+        return exhibitionRef == null ? null : exhibitionRef.getModel();
+    }
+
+    public void setExhibition(Exhibition exhibition) {
+        if (exhibition == null || exhibitionRef == null) {
+            return;
+        }
+
+        exhibitionRef.setModel(exhibition);
+    }
+
     public List<Appreciation> getApprectiations() {
         return appreciationsRef == null ? null : appreciationsRef
             .getModelList();
@@ -104,6 +118,10 @@ public class Review implements Serializable {
     // Proper getters setters
     public ModelRef<User> getAuthorRef() {
         return authorRef;
+    }
+
+    public ModelRef<Exhibition> getExhibitionRef() {
+        return exhibitionRef;
     }
 
     public InverseModelListRef<Appreciation, Review> getAppreciationsRef() {

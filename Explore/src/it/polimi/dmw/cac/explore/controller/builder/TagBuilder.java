@@ -22,6 +22,7 @@ public class TagBuilder {
         tag.setName(name);
         return this;
     }
+    
     public Key store() {
         return Datastore.put(tag);
     }
