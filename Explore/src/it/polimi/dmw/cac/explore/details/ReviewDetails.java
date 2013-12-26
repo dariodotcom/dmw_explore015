@@ -9,19 +9,20 @@ import javax.xml.bind.annotation.XmlElement;
 
 public class ReviewDetails extends Details {
 
-    private String authorIdentity;
+    private String authorUsername;
     private String text;
-    private int mark;
+    private int grade;
     private int positiveAppreciations;
     private int negativeAppreciations;
-    private boolean canAppreciate;
+    private String appreciation;
 
     public ReviewDetails(Review review, User requestor) {
-        authorIdentity = requestor.getUsername();
+        authorUsername = requestor.getUsername();
         text = review.getText();
-        mark = review.getGrade();
+        grade = review.getGrade();
         positiveAppreciations = 0;
         negativeAppreciations = 0;
+
         for (Appreciation a : review.getApprectiations()) {
             if (a.getValue() > 0) {
                 positiveAppreciations++;
@@ -29,20 +30,19 @@ public class ReviewDetails extends Details {
                 negativeAppreciations++;
             }
         }
-        if(Queries.hasUserReviewed(requestor, review.getExhibition())){
-            canAppreciate = false;
-        }else{
-            canAppreciate = true;
-        }
+
+        Appreciation appr = Queries.getAppreciation(requestor, review);
+        appreciation =
+            appr == null ? null : appr.getValue() > 0 ? "POSITIVE" : "NEGATIVE";
     }
 
     @XmlElement(name = "author")
     public String getAuthorIdentity() {
-        return authorIdentity;
+        return authorUsername;
     }
 
     public void setAuthorIdentity(String authorIdentity) {
-        this.authorIdentity = authorIdentity;
+        this.authorUsername = authorIdentity;
     }
 
     @XmlElement(name = "text")
@@ -56,11 +56,11 @@ public class ReviewDetails extends Details {
 
     @XmlElement(name = "mark")
     public int getMark() {
-        return mark;
+        return grade;
     }
 
     public void setMark(int mark) {
-        this.mark = mark;
+        this.grade = mark;
     }
 
     @XmlElement(name = "positive")
@@ -81,13 +81,13 @@ public class ReviewDetails extends Details {
         this.negativeAppreciations = negativeAppreciations;
     }
 
-    @XmlElement(name = "canAppreciate")
-    public boolean canAppreciate() {
-        return canAppreciate;
+    @XmlElement(name = "appreciation")
+    public String getAppreciation() {
+        return appreciation;
     }
 
-    public void setCanAppreciate(boolean canAppreciate) {
-        this.canAppreciate = canAppreciate;
+    public void setAppreciation(String appreciation) {
+        this.appreciation = appreciation;
     }
 
 }
