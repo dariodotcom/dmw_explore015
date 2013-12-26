@@ -1,5 +1,6 @@
 package it.polimi.dmw.cac.explore.details;
 
+import it.polimi.dmw.cac.explore.controller.Queries;
 import it.polimi.dmw.cac.explore.model.Exhibition;
 import it.polimi.dmw.cac.explore.model.User;
 
@@ -16,19 +17,16 @@ public class ExhibitionDetails extends Details {
     private Boolean visited;
 
 
-    public ExhibitionDetails(ExhibitionDetails exhibition){
-        id = exhibition.getId();
+    public ExhibitionDetails(Exhibition exhibition, User requestor){
+        setId( KeyFactory.keyToString(exhibition.getKey()));
         name = exhibition.getName() ;
         description = exhibition.getDescription() ;
         photoUrl = exhibition.getPhotoUrl() ;
         grade = exhibition.getGrade() ;
-        visited = exhibition.getVisited() ;
-        reviewable = exhibition.get true ? false ;
+        visited = Queries.hasUserVisited(requestor, exhibition) == true ?true : false;
+        reviewable = Queries.hasUserReviewed (requestor, exhibition) == true ? true : false ;
     }
     
-    public ExhibitionDetails(Exhibition exhibition, User requestor) {
-        // TODO Auto-generated constructor stub
-    }
 
     @XmlElement(name = "id")
     public String getId() {
