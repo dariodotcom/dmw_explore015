@@ -24,6 +24,8 @@ public class Appreciation implements Serializable {
     @Attribute(version = true)
     private Long version;
 
+    private int value;
+
     private ModelRef<User> authorRef;
     private ModelRef<Review> reviewRef;
 
@@ -54,16 +56,24 @@ public class Appreciation implements Serializable {
 
         authorRef.setModel(author);
     }
-    
-    public Review getReview(){
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    public Review getReview() {
         return reviewRef == null ? null : reviewRef.getModel();
     }
-    
-    public void setReview(Review review){
-        if(review == null || reviewRef == null){
+
+    public void setReview(Review review) {
+        if (review == null || reviewRef == null) {
             return;
         }
-        
+
         reviewRef.setModel(review);
     }
 
