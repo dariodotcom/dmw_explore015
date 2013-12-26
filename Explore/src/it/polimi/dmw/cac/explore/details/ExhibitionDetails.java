@@ -15,10 +15,17 @@ public class ExhibitionDetails extends Details {
     private boolean reviewable;
     private Boolean visited;
 
-    public ExhibitionDetails() {
 
+    public ExhibitionDetails(ExhibitionDetails exhibition){
+        id = exhibition.getId();
+        name = exhibition.getName() ;
+        description = exhibition.getDescription() ;
+        photoUrl = exhibition.getPhotoUrl() ;
+        grade = exhibition.getGrade() ;
+        visited = exhibition.getVisited() ;
+        reviewable = exhibition.get true ? false ;
     }
-
+    
     public ExhibitionDetails(Exhibition exhibition, User requestor) {
         // TODO Auto-generated constructor stub
     }
