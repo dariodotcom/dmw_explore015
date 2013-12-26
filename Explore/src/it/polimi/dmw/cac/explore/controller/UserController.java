@@ -15,7 +15,9 @@ public class UserController {
             throw new ControllerException(Type.MISSING_PARAMETER);
         }
 
-        // TODO check if username is available
+        if (Queries.getUserByUsername(request.getUsername()) != null) {
+            throw new ControllerException(Type.DUPLICATE_ENTITY);
+        }
 
         UserBuilder builder = UserBuilder.create(request);
         User user = builder.getUser();
