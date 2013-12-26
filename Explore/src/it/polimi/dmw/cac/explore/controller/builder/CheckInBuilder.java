@@ -8,22 +8,22 @@ import it.polimi.dmw.cac.explore.model.CheckIn;
 import it.polimi.dmw.cac.explore.model.Exhibition;
 import it.polimi.dmw.cac.explore.model.User;
 
-public class ChekInBuilder {
+public class CheckInBuilder {
     private CheckIn checkIn ;
     
-    public static ChekInBuilder create() {
-        return new ChekInBuilder();
+    public static CheckInBuilder create() {
+        return new CheckInBuilder();
     }
     
-    private ChekInBuilder() {
+    private CheckInBuilder() {
         checkIn = new CheckIn() ;
     }
     
-    public ChekInBuilder author(User author){
+    public CheckInBuilder author(User author){
         checkIn.setAuthor(author);
         return this;
     }
-    public ChekInBuilder exhibition(Exhibition exb){
+    public CheckInBuilder exhibition(Exhibition exb){
         checkIn.setExhibition(exb);
         return this;
     }

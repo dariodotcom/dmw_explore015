@@ -6,6 +6,8 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 
 import it.polimi.dmw.cac.explore.controller.ControllerException.Type;
+import it.polimi.dmw.cac.explore.controller.builder.CheckInBuilder;
+import it.polimi.dmw.cac.explore.controller.builder.ReviewBuilder;
 import it.polimi.dmw.cac.explore.details.ExhibitionDetails;
 import it.polimi.dmw.cac.explore.model.Exhibition;
 import it.polimi.dmw.cac.explore.model.User;
@@ -42,16 +44,38 @@ public class ExhibitionController {
     }
 
     public void checkIn() throws ControllerException {
-        if(requestor == null){
-            
+        if (requestor == null) {
+            throw new ControllerException(Type.LOGIN_REQUIRED);
         }
+
+        if (Queries.hasUserVisited(requestor, exhibition)) {
+            throw new ControllerException(Type.DUPLICATE_ENTITY);
+        }
+
+        CheckInBuilder
+            .create()
+            .author(requestor)
+            .exhibition(exhibition)
+            .store();
         
-        
+        // TODO store tags
+
         return;
     }
 
-    public ReviewController review(ReviewRequest request)
-            throws ControllerException {
-        return null;
+    public Key review(ReviewRequest request) throws ControllerException {
+        if (requestor == null) {
+            throw new ControllerException(Type.LOGIN_REQUIRED);
+        }
+
+        if (Queries.hasUserReviewed(requestor, exhibition)) {
+            throw new ControllerException(Type.DUPLICATE_ENTITY);
+        }
+
+        return ReviewBuilder
+            .create(request)
+            .author(requestor)
+            .exhibition(exhibition)
+            .store();
     }
 }
