@@ -1,11 +1,13 @@
 package it.polimi.dmw.cac.explore.details;
 
+import it.polimi.dmw.cac.explore.controller.Queries;
+import it.polimi.dmw.cac.explore.model.Appreciation;
 import it.polimi.dmw.cac.explore.model.Review;
 import it.polimi.dmw.cac.explore.model.User;
 
 import javax.xml.bind.annotation.XmlElement;
 
-public class ReviewDetails extends Details{
+public class ReviewDetails extends Details {
 
     private String authorIdentity;
     private String text;
@@ -15,7 +17,23 @@ public class ReviewDetails extends Details{
     private boolean canAppreciate;
 
     public ReviewDetails(Review review, User requestor) {
-        // TODO Auto-generated constructor stub
+        authorIdentity = requestor.getUsername();
+        text = review.getText();
+        mark = review.getGrade();
+        positiveAppreciations = 0;
+        negativeAppreciations = 0;
+        for (Appreciation a : review.getApprectiations()) {
+            if (a.getValue() > 0) {
+                positiveAppreciations++;
+            } else if (a.getValue() < 0) {
+                negativeAppreciations++;
+            }
+        }
+        if(Queries.hasUserReviewed(requestor, review.getExhibition())){
+            canAppreciate = false;
+        }else{
+            canAppreciate = true;
+        }
     }
 
     @XmlElement(name = "author")
