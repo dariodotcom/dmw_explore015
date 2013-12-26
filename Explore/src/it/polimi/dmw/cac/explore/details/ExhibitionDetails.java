@@ -6,6 +6,8 @@ import it.polimi.dmw.cac.explore.model.User;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import com.google.appengine.api.datastore.KeyFactory;
+
 public class ExhibitionDetails extends Details {
 
     private String id;
@@ -16,17 +18,17 @@ public class ExhibitionDetails extends Details {
     private boolean reviewable;
     private Boolean visited;
 
-
-    public ExhibitionDetails(Exhibition exhibition, User requestor){
-        setId( KeyFactory.keyToString(exhibition.getKey()));
-        name = exhibition.getName() ;
-        description = exhibition.getDescription() ;
-        photoUrl = exhibition.getPhotoUrl() ;
-        grade = exhibition.getGrade() ;
-        visited = Queries.hasUserVisited(requestor, exhibition) == true ?true : false;
-        reviewable = Queries.hasUserReviewed (requestor, exhibition) == true ? true : false ;
+    public ExhibitionDetails(Exhibition exhibition, User requestor) {
+        id = KeyFactory.keyToString(exhibition.getKey());
+        name = exhibition.getName();
+        description = exhibition.getDescription();
+        photoUrl = exhibition.getPhotoUrl();
+        visited = Queries.hasUserVisited(requestor, exhibition);
+        reviewable =
+            requestor == null ? false : Queries.hasUserReviewed(
+                requestor,
+                exhibition);
     }
-    
 
     @XmlElement(name = "id")
     public String getId() {
