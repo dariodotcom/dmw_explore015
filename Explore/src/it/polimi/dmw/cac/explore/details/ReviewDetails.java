@@ -2,7 +2,7 @@ package it.polimi.dmw.cac.explore.details;
 
 import javax.xml.bind.annotation.XmlElement;
 
-public class ReviewDetails {
+public class ReviewDetails extends Details{
 
     private String authorIdentity;
     private String text;

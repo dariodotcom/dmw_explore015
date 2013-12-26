@@ -4,7 +4,7 @@ import it.polimi.dmw.cac.explore.details.ReviewDetails;
 
 public class ReviewController {
 
-    public static ReviewController getReview(UserController requestor) {
+    public static ReviewController getReview(UserController requestor, String id) {
         return null;
     }
 

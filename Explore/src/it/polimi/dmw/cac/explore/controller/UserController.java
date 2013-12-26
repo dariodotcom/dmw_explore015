@@ -1,10 +1,12 @@
 package it.polimi.dmw.cac.explore.controller;
 
 import it.polimi.dmw.cac.explore.details.UserDetails;
+import it.polimi.dmw.cac.explore.request.RegistrationRequest;
 
 public class UserController {
 
-    public static UserController createUser() throws ControllerException {
+    public static UserController createUser(RegistrationRequest request)
+            throws ControllerException {
         return null;
     }
 
@@ -12,8 +14,8 @@ public class UserController {
         return null;
     }
 
-    public boolean authenticate() {
-        return false;
+    public void authenticate(String password) throws ControllerException {
+        return;
     }
 
     public UserDetails getDetails() {

@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class UserDetails {
+public class UserDetails extends Details {
 
     private String username;
     private String name;
