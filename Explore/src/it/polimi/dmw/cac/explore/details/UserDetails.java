@@ -17,7 +17,9 @@ public class UserDetails extends Details {
     }
 
     public UserDetails(User user) {
-
+        username = user.getUsername();
+        name = user.getName();
+        surname = user.getSurname();
     }
 
     @XmlElement(name = "username")
