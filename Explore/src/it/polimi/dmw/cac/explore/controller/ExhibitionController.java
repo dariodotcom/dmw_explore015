@@ -5,7 +5,8 @@ import it.polimi.dmw.cac.explore.request.ReviewRequest;
 
 public class ExhibitionController {
 
-    public static ExhibitionController getExhibition(UserController requestor) {
+    public static ExhibitionController getExhibition(UserController requestor,
+            String id) throws ControllerException {
         return null;
     }
 
@@ -17,7 +18,8 @@ public class ExhibitionController {
         return;
     }
 
-    public void review(ReviewRequest request) throws ControllerException {
-
+    public ReviewController review(ReviewRequest request)
+            throws ControllerException {
+        return null;
     }
 }

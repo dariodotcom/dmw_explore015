@@ -2,14 +2,15 @@ package it.polimi.dmw.cac.explore.details;
 
 import javax.xml.bind.annotation.XmlElement;
 
-public class ExhibitionDetails {
+public class ExhibitionDetails extends Details {
 
     private String id;
     private String name;
     private String description;
     private String photoUrl;
     private int grade;
-    private boolean canReview;
+    private boolean reviewable;
+    private Boolean visited;
 
     @XmlElement(name = "id")
     public String getId() {
@@ -56,12 +57,20 @@ public class ExhibitionDetails {
         this.grade = grade;
     }
 
-    @XmlElement(name = "canReview")
-    public boolean canReview() {
-        return canReview;
+    @XmlElement(name = "reviewable")
+    public boolean isReviewable() {
+        return reviewable;
     }
 
-    public void setCanReview(boolean canReview) {
-        this.canReview = canReview;
+    public void setReviewable(boolean reviewable) {
+        this.reviewable = reviewable;
+    }
+
+    public Boolean getVisited() {
+        return visited;
+    }
+
+    public void setVisited(Boolean visited) {
+        this.visited = visited;
     }
 }
