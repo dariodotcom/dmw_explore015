@@ -1,5 +1,8 @@
 package it.polimi.dmw.cac.explore.details;
 
+import it.polimi.dmw.cac.explore.model.Review;
+import it.polimi.dmw.cac.explore.model.User;
+
 import javax.xml.bind.annotation.XmlElement;
 
 public class ReviewDetails extends Details{
@@ -10,6 +13,10 @@ public class ReviewDetails extends Details{
     private int positiveAppreciations;
     private int negativeAppreciations;
     private boolean canAppreciate;
+
+    public ReviewDetails(Review review, User requestor) {
+        // TODO Auto-generated constructor stub
+    }
 
     @XmlElement(name = "author")
     public String getAuthorIdentity() {

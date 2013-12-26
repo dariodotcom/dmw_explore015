@@ -2,10 +2,10 @@ package it.polimi.dmw.cac.explore.controller;
 
 import org.slim3.datastore.Datastore;
 
-import it.polimi.dmw.cac.explore.meta.CheckInMeta;
-import it.polimi.dmw.cac.explore.meta.ReviewMeta;
-import it.polimi.dmw.cac.explore.meta.UserMeta;
+import it.polimi.dmw.cac.explore.meta.*;
+import it.polimi.dmw.cac.explore.model.Appreciation;
 import it.polimi.dmw.cac.explore.model.Exhibition;
+import it.polimi.dmw.cac.explore.model.Review;
 import it.polimi.dmw.cac.explore.model.User;
 
 public class Queries {
@@ -34,5 +34,14 @@ public class Queries {
             .filter(review.authorRef.equal(requestor.getKey()))
             .filter(review.exhibitionRef.equal(exhibition.getKey()))
             .count() > 0;
+    }
+
+    public static Appreciation getAppreciation(User requestor, Review review) {
+        AppreciationMeta appreciation = AppreciationMeta.get();
+        return Datastore
+            .query(appreciation)
+            .filter(appreciation.authorRef.equal(requestor.getKey()))
+            .filter(appreciation.reviewRef.equal(review.getKey()))
+            .asSingle();
     }
 }

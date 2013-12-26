@@ -20,6 +20,10 @@ public class AppreciationBuilder {
         appreciation = new Appreciation();
     }
 
+    public AppreciationBuilder(Appreciation appreciation) {
+        this.appreciation = appreciation;
+    }
+
     public AppreciationBuilder positive(boolean positive) {
         if (positive) {
             appreciation.setValue(+1);
@@ -41,6 +45,11 @@ public class AppreciationBuilder {
 
     public Key store() {
         return Datastore.put(appreciation);
+    }
+
+    public static AppreciationBuilder get(Key key) {
+        Appreciation appreciation = Datastore.get(Appreciation.class, key);
+        return new AppreciationBuilder(appreciation);
     }
 
 }
