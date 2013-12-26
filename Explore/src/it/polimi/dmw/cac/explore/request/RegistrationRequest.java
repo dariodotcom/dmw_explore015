@@ -1,5 +1,7 @@
 package it.polimi.dmw.cac.explore.request;
 
+import it.polimi.dmw.cac.explore.Utils;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -47,4 +49,7 @@ public class RegistrationRequest {
         this.password = password;
     }
 
+    public boolean isComplete() {
+        return !Utils.isStringEmpty(username) && !Utils.isStringEmpty(password);
+    }
 }

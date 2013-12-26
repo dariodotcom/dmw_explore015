@@ -1,6 +1,7 @@
 package it.polimi.dmw.cac.explore.controller.builder;
 
 import it.polimi.dmw.cac.explore.model.User;
+import it.polimi.dmw.cac.explore.request.RegistrationRequest;
 
 import org.slim3.datastore.Datastore;
 
@@ -8,8 +9,12 @@ import com.google.appengine.api.datastore.Key;
 
 public class UserBuilder {
 
-    public static UserBuilder create() {
-        return new UserBuilder();
+    public static UserBuilder create(RegistrationRequest request) {
+        return new UserBuilder()
+            .username(request.getUsername())
+            .name(request.getName())
+            .surname(request.getSurname())
+            .password(request.getPassword());
     }
 
     private User user;
@@ -44,5 +49,9 @@ public class UserBuilder {
 
     public Key store() {
         return Datastore.put(user);
+    }
+
+    public User getUser() {
+        return user;
     }
 }

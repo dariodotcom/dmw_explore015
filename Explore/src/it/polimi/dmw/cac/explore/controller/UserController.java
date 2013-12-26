@@ -1,25 +1,51 @@
 package it.polimi.dmw.cac.explore.controller;
 
+import it.polimi.dmw.cac.explore.controller.ControllerException.Type;
+import it.polimi.dmw.cac.explore.controller.builder.UserBuilder;
 import it.polimi.dmw.cac.explore.details.UserDetails;
+import it.polimi.dmw.cac.explore.model.User;
 import it.polimi.dmw.cac.explore.request.RegistrationRequest;
 
 public class UserController {
 
     public static UserController createUser(RegistrationRequest request)
             throws ControllerException {
-        return null;
+
+        if (!request.isComplete()) {
+            throw new ControllerException(Type.MISSING_PARAMETER);
+        }
+
+        // TODO check if username is available
+
+        UserBuilder builder = UserBuilder.create(request);
+        User user = builder.getUser();
+        builder.store();
+
+        return new UserController(user);
     }
 
-    public static UserController getUser(String id) throws ControllerException {
-        return null;
+    public static UserController getUser(String username)
+            throws ControllerException {
+        User user = Queries.getUserByUsername(username);
+        if (user == null) {
+            throw new ControllerException(Type.MISSING_ENTITY);
+        }
+        return new UserController(user);
+    }
+
+    private User entity;
+
+    private UserController(User user) {
+        this.entity = user;
     }
 
     public void authenticate(String password) throws ControllerException {
-        return;
+        if (!entity.isPasswordMatching(password)) {
+            throw new ControllerException(Type.WRONG_PASSWORD);
+        }
     }
 
     public UserDetails getDetails() {
-        return null;
+        return new UserDetails(entity);
     }
-
 }
