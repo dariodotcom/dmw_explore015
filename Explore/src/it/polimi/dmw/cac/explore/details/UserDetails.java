@@ -1,5 +1,7 @@
 package it.polimi.dmw.cac.explore.details;
 
+import it.polimi.dmw.cac.explore.model.User;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -9,6 +11,14 @@ public class UserDetails extends Details {
     private String username;
     private String name;
     private String surname;
+
+    public UserDetails() {
+
+    }
+
+    public UserDetails(User user) {
+
+    }
 
     @XmlElement(name = "username")
     public String getUsername() {

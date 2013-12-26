@@ -7,37 +7,40 @@ import it.polimi.dmw.cac.explore.model.User;
 
 import org.slim3.datastore.Datastore;
 
+import com.google.appengine.api.datastore.Key;
+
 public class ReviewBuilder {
-    
-    private Review review ;
-    
+
+    private Review review;
+
     public static ReviewBuilder create() {
-        return new ReviewBuilder() ;
+        return new ReviewBuilder();
     }
-    
+
     private ReviewBuilder() {
-       review = new Review();
+        review = new Review();
     }
-    
+
     public ReviewBuilder author(User author) {
-        review.setAuthor(author) ;
-        return this ;
+        review.setAuthor(author);
+        return this;
     }
-    
+
     public ReviewBuilder text(String text) {
-      review.setText(text) ; 
-      return this ; 
+        review.setText(text);
+        return this;
     }
-    
+
     public ReviewBuilder grade(int grade) {
         review.setGrade(grade);
         return this;
     }
-    public ReviewBuilder date (Date date) {
+
+    public ReviewBuilder date(Date date) {
         review.setDate(date);
         return this;
     }
-    
+
     public Key store() {
         return Datastore.put(review);
     }
