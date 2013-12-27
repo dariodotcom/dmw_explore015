@@ -23,9 +23,12 @@ public class ExhibitionDetails extends Details {
         name = exhibition.getName();
         description = exhibition.getDescription();
         photoUrl = exhibition.getPhotoUrl();
-        visited = Queries.hasUserVisited(requestor, exhibition);
+        visited =
+            requestor == null ? false : Queries.hasUserVisited(
+                requestor,
+                exhibition);
         reviewable =
-            requestor == null ? false : Queries.hasUserReviewed(
+            requestor == null ? false : !Queries.hasUserReviewed(
                 requestor,
                 exhibition);
     }

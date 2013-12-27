@@ -21,4 +21,7 @@ public class Utils {
 
     }
 
+    public static boolean isGradeValid(int grade) {
+        return grade >= 0 && grade <= 5;
+    }
 }

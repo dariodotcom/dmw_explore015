@@ -38,7 +38,7 @@ public class UserRest extends RestContainer {
     public Response doLogin(LoginRequest loginRequest) {
         try {
             String username = loginRequest.getUsername();
-            UserController user = UserController.getUser(username);
+            UserController user = UserController.getUserChecked(username);
             user.authenticate(loginRequest.getPassword());
             UserDetails details = user.getDetails();
             setSessionUsername(details.getUsername());
@@ -60,7 +60,7 @@ public class UserRest extends RestContainer {
     public Response getCurrentUser() {
         try {
             String username = getSessionUsername();
-            UserController user = UserController.getUser(username);
+            UserController user = UserController.getUserChecked(username);
             return ResponseFactory.from(user.getDetails());
         } catch (ControllerException e) {
             return ResponseFactory.from(e);
@@ -71,7 +71,7 @@ public class UserRest extends RestContainer {
     @Path("username/{username}")
     public Response getById(@PathParam("username") String username) {
         try {
-            UserController user = UserController.getUser(username);
+            UserController user = UserController.getUserChecked(username);
             return ResponseFactory.from(user.getDetails());
         } catch (ControllerException e) {
             return ResponseFactory.from(e);

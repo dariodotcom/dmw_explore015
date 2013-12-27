@@ -1,5 +1,7 @@
 package it.polimi.dmw.cac.explore.request;
 
+import it.polimi.dmw.cac.explore.Utils;
+
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -37,5 +39,9 @@ public class ReviewRequest {
 
     public void setTags(List<String> tags) {
         this.tags = tags;
+    }
+
+    public boolean isValid() {
+        return !Utils.isStringEmpty(text) && Utils.isGradeValid(grade);
     }
 }
