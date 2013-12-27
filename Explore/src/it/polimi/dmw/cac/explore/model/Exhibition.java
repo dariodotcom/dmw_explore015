@@ -24,7 +24,13 @@ public class Exhibition implements Serializable {
         taggingsRef =
             new InverseModelListRef<Tagging, Exhibition>(
                 Tagging.class,
-                "taggingsRef",
+                "exhibitionRef",
+                this);
+
+        reviewsRef =
+            new InverseModelListRef<Review, Exhibition>(
+                Review.class,
+                "exhibitionRef",
                 this);
     }
 
@@ -43,6 +49,9 @@ public class Exhibition implements Serializable {
 
     @Attribute(persistent = false)
     private InverseModelListRef<Tagging, Exhibition> taggingsRef;
+
+    @Attribute(persistent = false)
+    private InverseModelListRef<Review, Exhibition> reviewsRef;
 
     public Key getKey() {
         return key;
@@ -92,6 +101,10 @@ public class Exhibition implements Serializable {
         return taggingsRef == null ? null : taggingsRef.getModelList();
     }
 
+    public List<Review> getReviews() {
+        return reviewsRef == null ? null : reviewsRef.getModelList();
+    }
+
     // Relationships getters and setters
     public InverseModelListRef<CheckIn, Exhibition> getCheckInsRef() {
         return checkInsRef;
@@ -99,6 +112,10 @@ public class Exhibition implements Serializable {
 
     public InverseModelListRef<Tagging, Exhibition> getTaggingsRef() {
         return taggingsRef;
+    }
+
+    public InverseModelListRef<Review, Exhibition> getReviewsRef() {
+        return reviewsRef;
     }
 
     @Override

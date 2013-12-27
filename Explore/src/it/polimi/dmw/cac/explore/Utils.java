@@ -24,4 +24,8 @@ public class Utils {
     public static boolean isGradeValid(int grade) {
         return grade >= 0 && grade <= 5;
     }
+
+    public static String normalizeTagName(String tagName) {
+        return tagName.toLowerCase().replaceAll("[^a-zA-Z0-9]", "").trim();
+    }
 }
