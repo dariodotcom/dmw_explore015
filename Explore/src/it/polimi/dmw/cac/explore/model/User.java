@@ -1,6 +1,9 @@
 package it.polimi.dmw.cac.explore.model;
 
 import java.io.Serializable;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import com.google.appengine.api.datastore.Key;
@@ -93,12 +96,12 @@ public class User implements Serializable {
     }
 
     public boolean isPasswordMatching(String pwd) {
-        String hash = pwd; // FIXME hash password
+        String hash = hash(pwd);
         return hash.equals(passwordHash);
     }
 
     public void setPassword(String password) {
-        String hash = password; // FIXME hash password
+        String hash = hash(password);
         this.passwordHash = hash;
     }
 
@@ -164,4 +167,16 @@ public class User implements Serializable {
         }
         return true;
     }
+
+    private String hash(String input) {
+        try {
+            byte[] inputBytes = input.getBytes();
+            byte[] hash = MessageDigest.getInstance("SHA-1").digest(inputBytes);
+            return new BigInteger(1, hash).toString(16);
+        } catch (NoSuchAlgorithmException nse) {
+            nse.printStackTrace();
+            return null;
+        }
+    }
+
 }

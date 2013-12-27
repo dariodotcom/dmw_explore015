@@ -26,7 +26,15 @@ public class UserController {
         return new UserController(user);
     }
 
-    public static UserController getUser(String username)
+    public static UserController getUser(String username) {
+        User user = Queries.getUserByUsername(username);
+        if (user == null) {
+            return null;
+        }
+        return new UserController(user);
+    }
+
+    public static UserController getUserChecked(String username)
             throws ControllerException {
         User user = Queries.getUserByUsername(username);
         if (user == null) {

@@ -9,18 +9,18 @@ import javax.ws.rs.core.Response.Status;
 public class ResponseFactory {
 
     public static Response from(Details details) {
-        return Response.ok(details).build();
+        ResponseContainer c = new ResponseContainer(details);
+        return Response.ok(c).build();
     }
 
     public static Response from(ControllerException exception) {
         return Response
-            .status(Status.INTERNAL_SERVER_ERROR)
-            .entity(exception.getMessage())
+            .status(Status.BAD_REQUEST)
+            .entity(new ResponseContainer(exception))
             .build();
     }
 
     public static Response emptyResult() {
-        return null;
+        return Response.ok().build();
     }
-
 }

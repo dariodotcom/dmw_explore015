@@ -3,6 +3,7 @@ package it.polimi.dmw.cac.explore.rest;
 import it.polimi.dmw.cac.explore.controller.ControllerException;
 import it.polimi.dmw.cac.explore.controller.ExhibitionController;
 import it.polimi.dmw.cac.explore.controller.UserController;
+import it.polimi.dmw.cac.explore.request.ExhibitionCreationRequest;
 import it.polimi.dmw.cac.explore.request.ReviewRequest;
 
 import javax.ws.rs.Consumes;
@@ -18,6 +19,14 @@ import javax.ws.rs.core.Response;
 @Produces(MediaType.APPLICATION_JSON)
 public class ExhibitionRest extends RestContainer {
 
+    @Path("create")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response doCreate(ExhibitionCreationRequest request) {
+        ExhibitionController exhibition = ExhibitionController.create(request);
+        return ResponseFactory.from(exhibition.getDetails());
+    }
+
     @Path("id/{id}")
     public ExhibitionHandler getById(@PathParam("id") String id) {
         return new ExhibitionHandler(id);
@@ -29,6 +38,7 @@ public class ExhibitionRest extends RestContainer {
         return null;
     }
 
+    @Produces(MediaType.APPLICATION_JSON)
     public class ExhibitionHandler {
 
         private String id;

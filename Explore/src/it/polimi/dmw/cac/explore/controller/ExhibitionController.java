@@ -7,10 +7,12 @@ import com.google.appengine.api.datastore.KeyFactory;
 
 import it.polimi.dmw.cac.explore.controller.ControllerException.Type;
 import it.polimi.dmw.cac.explore.controller.builder.CheckInBuilder;
+import it.polimi.dmw.cac.explore.controller.builder.ExhibitionBuilder;
 import it.polimi.dmw.cac.explore.controller.builder.ReviewBuilder;
 import it.polimi.dmw.cac.explore.details.ExhibitionDetails;
 import it.polimi.dmw.cac.explore.model.Exhibition;
 import it.polimi.dmw.cac.explore.model.User;
+import it.polimi.dmw.cac.explore.request.ExhibitionCreationRequest;
 import it.polimi.dmw.cac.explore.request.ReviewRequest;
 
 public class ExhibitionController {
@@ -27,8 +29,15 @@ public class ExhibitionController {
         }
 
         Exhibition exhibition = Datastore.get(Exhibition.class, k);
+        User user = requestor == null ? null : requestor.getEntity();
 
-        return new ExhibitionController(requestor.getEntity(), exhibition);
+        return new ExhibitionController(user, exhibition);
+    }
+
+    public static ExhibitionController create(ExhibitionCreationRequest request) {
+        Key k = ExhibitionBuilder.create(request).store();
+        Exhibition ex = Datastore.get(Exhibition.class, k);
+        return new ExhibitionController(null, ex);
     }
 
     private User requestor;
@@ -57,7 +66,7 @@ public class ExhibitionController {
             .author(requestor)
             .exhibition(exhibition)
             .store();
-        
+
         // TODO store tags
 
         return;
@@ -72,10 +81,15 @@ public class ExhibitionController {
             throw new ControllerException(Type.DUPLICATE_ENTITY);
         }
 
+        if (!request.isValid()) {
+            throw new ControllerException(Type.BAD_REQUEST);
+        }
+
         return ReviewBuilder
             .create(request)
             .author(requestor)
             .exhibition(exhibition)
             .store();
     }
+
 }

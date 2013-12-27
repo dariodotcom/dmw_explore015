@@ -29,11 +29,14 @@ public class Queries {
 
     public static boolean hasUserReviewed(User requestor, Exhibition exhibition) {
         ReviewMeta review = ReviewMeta.get();
-        return Datastore
-            .query(review)
-            .filter(review.authorRef.equal(requestor.getKey()))
-            .filter(review.exhibitionRef.equal(exhibition.getKey()))
-            .count() > 0;
+        int reviewCount =
+            Datastore
+                .query(review)
+                .filter(review.authorRef.equal(requestor.getKey()))
+                .filter(review.exhibitionRef.equal(exhibition.getKey()))
+                .count();
+
+        return reviewCount > 0;
     }
 
     public static Appreciation getAppreciation(User requestor, Review review) {
