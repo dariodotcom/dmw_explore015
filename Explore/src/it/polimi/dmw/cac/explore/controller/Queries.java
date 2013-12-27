@@ -6,6 +6,8 @@ import it.polimi.dmw.cac.explore.meta.*;
 import it.polimi.dmw.cac.explore.model.Appreciation;
 import it.polimi.dmw.cac.explore.model.Exhibition;
 import it.polimi.dmw.cac.explore.model.Review;
+import it.polimi.dmw.cac.explore.model.Tag;
+import it.polimi.dmw.cac.explore.model.Tagging;
 import it.polimi.dmw.cac.explore.model.User;
 
 public class Queries {
@@ -47,4 +49,19 @@ public class Queries {
             .filter(appreciation.reviewRef.equal(review.getKey()))
             .asSingle();
     }
+
+    public static Tag getTagByName(String name) {
+        TagMeta tag = TagMeta.get();
+        return Datastore.query(tag).filter(tag.name.equal(name)).asSingle();
+    }
+
+    public static Tagging getTaggingBetween(Exhibition exhibition, Tag tag) {
+        TaggingMeta tagging = TaggingMeta.get();
+        return Datastore
+            .query(tagging)
+            .filter(tagging.exhibitionRef.equal(exhibition.getKey()))
+            .filter(tagging.tagRef.equal(tag.getKey()))
+            .asSingle();
+    }
+
 }

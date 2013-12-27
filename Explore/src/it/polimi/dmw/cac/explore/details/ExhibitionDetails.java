@@ -1,7 +1,11 @@
 package it.polimi.dmw.cac.explore.details;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import it.polimi.dmw.cac.explore.controller.Queries;
 import it.polimi.dmw.cac.explore.model.Exhibition;
+import it.polimi.dmw.cac.explore.model.Tagging;
 import it.polimi.dmw.cac.explore.model.User;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -14,6 +18,8 @@ public class ExhibitionDetails extends Details {
     private String name;
     private String description;
     private String photoUrl;
+    private List<TagDetail> tags;
+
     private int grade;
     private boolean reviewable;
     private Boolean visited;
@@ -31,6 +37,7 @@ public class ExhibitionDetails extends Details {
             requestor == null ? false : !Queries.hasUserReviewed(
                 requestor,
                 exhibition);
+        computeTags(exhibition);
     }
 
     @XmlElement(name = "id")
@@ -87,11 +94,42 @@ public class ExhibitionDetails extends Details {
         this.reviewable = reviewable;
     }
 
+    @XmlElement(name = "visited")
     public Boolean getVisited() {
         return visited;
     }
 
     public void setVisited(Boolean visited) {
         this.visited = visited;
+    }
+
+    @XmlElement(name = "tags")
+    public List<TagDetail> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<TagDetail> tags) {
+        this.tags = tags;
+    }
+
+    private void computeTags(Exhibition exhibition) {
+        this.tags = new ArrayList<TagDetail>();
+        double maxWeight = Double.NEGATIVE_INFINITY;
+
+        List<Tagging> taggings = exhibition.getTaggingsRef().getModelList();
+
+        for (Tagging t : taggings) {
+            double weight = t.getWeight();
+            if (weight > maxWeight) {
+                maxWeight = weight;
+            }
+        }
+
+        for (Tagging t : taggings) {
+            TagDetail tagDetail = new TagDetail();
+            tagDetail.setName(t.getTag().getName());
+            tagDetail.setWeight(t.getWeight() / maxWeight);
+            tags.add(tagDetail);
+        }
     }
 }

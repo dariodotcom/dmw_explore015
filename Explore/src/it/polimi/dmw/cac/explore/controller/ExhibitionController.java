@@ -9,6 +9,7 @@ import it.polimi.dmw.cac.explore.controller.ControllerException.Type;
 import it.polimi.dmw.cac.explore.controller.builder.CheckInBuilder;
 import it.polimi.dmw.cac.explore.controller.builder.ExhibitionBuilder;
 import it.polimi.dmw.cac.explore.controller.builder.ReviewBuilder;
+import it.polimi.dmw.cac.explore.controller.builder.TaggingBuilder;
 import it.polimi.dmw.cac.explore.details.ExhibitionDetails;
 import it.polimi.dmw.cac.explore.model.Exhibition;
 import it.polimi.dmw.cac.explore.model.User;
@@ -49,6 +50,8 @@ public class ExhibitionController {
     }
 
     public ExhibitionDetails getDetails() {
+        System.out.println(exhibition.getTaggings());
+        System.out.println(exhibition.getReviews());
         return new ExhibitionDetails(exhibition, requestor);
     }
 
@@ -83,6 +86,10 @@ public class ExhibitionController {
 
         if (!request.isValid()) {
             throw new ControllerException(Type.BAD_REQUEST);
+        }
+
+        for (String tag : request.getTags()) {
+            TaggingBuilder.create().tag(tag, exhibition).store();
         }
 
         return ReviewBuilder
