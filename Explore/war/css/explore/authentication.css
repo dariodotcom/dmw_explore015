@@ -1,0 +1,43 @@
+.inputWrapper{
+	margin: 20px;
+}
+
+.inputWrapper > textarea,
+.inputWrapper > input{
+	width: 100%;
+	border: 1px solid rgba(0,0,0,.3);
+	padding: 4px;
+	font-size: 18px;
+	border-radius: 2px;
+}
+
+.inputWrapper > textarea:focus,
+.inputWrapper > input:focus{
+	border-color: #3c9244;
+}
+
+#reviewForm .button,
+#registrationForm .button,
+#loginForm .button{
+	border: none;
+	display: block;
+	margin: 0 auto;
+	padding: 0 30px;
+	font-size: 18px;
+}
+
+.inputDescription{
+	margin-bottom: 8px;
+	color: #6d6d6d;
+}
+
+.intro{
+	margin: 20px;
+	color: #6d6d6d;
+	line-height: 20px;
+}
+
+.exhibitionName{
+	font-weight: bold;
+	font-size: 18px;
+}
