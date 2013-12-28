@@ -12,7 +12,7 @@
 		<div id="header">
 			<div class="buttonWrapper">
 				<a id="buttonMenu" class="button" href="#"><span class="icon">&nbsp;</span></a>
-				<a id="buttonFind" class="button" href="#" open><span class="icon">&nbsp;</span></a>
+				<a id="buttonFind" class="button" href="#"><span class="icon">&nbsp;</span></a>
 			</div>
 			<div class="logoContainer">
 				<div class="logo">&nbsp;</div>
@@ -20,7 +20,65 @@
 		</div>
 		<div id="page">
 			<div id="viewContainer">
-				<div id="searchView" class="view current">
+				<div id="loginView" class="view">
+					<form id="loginForm">
+						<div class="inputWrapper">
+							<input type="text" placeholder="username" id ="username"/>
+						</div>
+						<div class="inputWrapper">
+							<input type="password" placeholder="password" id="password"/>
+						</div>
+						
+						<input type="submit" class="button" value="login"/>
+						
+					</form>
+				</div>
+				<div id="registrationView" class="view">
+					<form id="registrationForm">
+						<div class="inputWrapper">
+							<input type="text" placeholder="username" id ="username"/>
+						</div>
+						<div class="inputWrapper">
+							<input type="password" placeholder="password" id="password"/>
+						</div>
+						<div class="inputWrapper">
+							<input type="password" placeholder="confirm password" id="confirmPassword"/>
+						</div>
+						<div class="inputWrapper">
+							<input type="text" placeholder="name" id ="name"/>
+						</div>
+						<div class="inputWrapper">
+							<input type="text" placeholder="surname" id ="surname"/>
+						</div>
+						<input type="submit" class="button" value="register"/>
+						
+					</form>
+				</div>
+				<div id="reviewCreationView" class="view current">
+					<form id="reviewForm">
+						<p class="intro">You are reviewing:<br/><span class="exhibitionName">Decorateur d'espace de view</span>.</p>
+						<div class="inputWrapper">
+							<p class="inputDescription">How much did you enjoy this place?</p>
+							<div class="stars">
+								<span class="star full">&nbsp;</span>
+								<span class="star full">&nbsp;</span>
+								<span class="star full">&nbsp;</span>
+								<span class="star empty">&nbsp;</span>
+								<span class="star empty">&nbsp;</span>
+							</div>	
+						</div>					
+						<div class="inputWrapper">
+							<p class="inputDescription">What do you think about it?</p>
+							<textarea placeholder="comment" id="comment"></textarea>
+						</div>
+						<div class="inputWrapper">
+							<p class="inputDescription">Describe this place in three words</p>
+							<input type="text" placeholder="#tag" id ="tag"/>
+						</div>
+						<input type="submit" class="button" value="review"/>
+					</form>
+				</div>
+				<div id="searchView" class="view">
 					<div id="searchOverlay" class="overlay">
 						<form id="searchForm" action="#">
 							<div id="searchTermContainer">
