@@ -1,0 +1,51 @@
+#menuOverlay{
+	display: none;
+	position: absolute;
+	width: 100%;
+}
+
+#menuOverlay[open]{
+	display: block;
+}
+
+#menu .entry{
+	padding: 20px;
+}
+
+.entryContainer:not(:last-child){
+	border-bottom: 1px solid rgba(0,0,0,.3);
+}
+
+.entryContainer .entry{
+	display: block;
+	padding: 10px;
+	font-size: 20px;
+	color: #6d6d6d;
+}
+
+.entryContainer .entry .text{
+	vertical-align: middle;
+}
+
+.entryContainer .entry > span{
+	display: inline-block;
+}
+
+.entryContainer .entry .arrow{
+	background-image: url("/res/arrow.png");
+	background-repeat: no-repeat;
+	height: 16px;
+	width: 10px;
+	background-size: 10px 16px;
+	background-position: center right;
+	float: right;
+}
+
+.entryContainer .entry:active{
+	background-color: #3c9244;
+	color: white;
+}
+
+.entryContainer .entry:active > .arrow{
+	background-image: url("/res/arrow-active.png");
+}
