@@ -1,0 +1,61 @@
+#searchForm{
+	padding: 12px 0;
+	margin: 0 auto;
+	width: 300px;
+}
+
+#searchTermContainer {
+	width: 294px;
+	display: inline-block;
+	padding: 2px;
+	border: 1px solid rgba(0,0,0,.3);
+	background: white;
+}
+
+#searchTermContainer div{
+	display: inline-block;
+}
+
+#searchTermContainer input{
+	border: none;
+	background: transparent;
+}
+
+#searchTerm{
+	padding: 4px;
+	display: inline-block;
+	width: 200px;
+	font-size: 16px;
+}
+
+#searchForm > .button{
+	border: none;
+}
+
+#searchResult .entry{
+	padding: 5px;
+}
+
+
+#searchResult .text{
+	max-width: 150px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+#searchResult .text,
+#searchResult .arrow {
+	line-height: 60px;
+	height: 60px;
+	vertical-align: bottom;
+	margin-left: 10px;
+}
+
+#searchResult .thumbnail{
+	width: 80px;
+	height: 60px;
+	background: red;
+	background-image: url("http://landscaping-pool.com/images/8expo3.jpg");
+	background-size: cover;
+}

@@ -1,0 +1,123 @@
+#exhibitionImage{
+	height: 250px;
+	background-image: url("http://landscaping-pool.com/images/8expo3.jpg");
+	background-size: cover;
+	position: relative;
+}
+
+#exhibitionImage > .exhibitionName{
+	display: block;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	padding: 15px;
+	color: white;
+	font-size: 16px;
+	font-weight: bold;
+	background-image: linear-gradient(0deg, rgba(0,0,0,1), rgba(0,0,0,0));
+}
+
+#description{
+	background: white;
+	padding: 16px 16px 19px 16px;
+	line-height: 18px;
+	color: #6d6d6d;
+	box-shadow: 0 1px 0 0  rgba(0,0,0,.3);
+}
+
+#description .stars{
+	color: #7d7d7d;;
+}
+
+#checkin{
+	width: 240px;
+	margin: 16px auto;
+}
+
+#checkin > .text{
+	display: inline-block;
+	background-image: url("/res/checkin.png");
+	background-repeat: no-repeat;
+	background-size: 19px 30px;
+	background-position: center left;
+	font-weight: bold;
+	padding: 15px 15px 15px 25px;
+	vertical-align: baseline;
+}
+
+.review {
+	margin: 12px;
+	background: white;
+}
+
+.review > .header {
+	padding: 12px;
+	background: #ffffff;
+	box-shadow: 0 -2px 2px -2px  rgba(0,0,0,.3) inset;
+	font-weight: bold;
+	color: #656565;
+	position: relative;
+}
+
+.review .stars{
+	display: inline-block;
+	position: absolute;
+	right: 12px;
+	bottom: 12px;
+}
+
+.star{
+	vertical-align: top;
+	display: inline-block;
+	font-size: 0;
+	height: 17px;
+	width: 17px;
+	background-size: 17px 17px;
+	background-repeat: no-repeat;
+}
+
+.star.full{
+	background-image: url("/res/star-full.png");
+}
+
+.star.empty{
+	background-image: url("/res/star-empty.png");
+}
+
+.review > .text{
+	padding: 12px;
+	line-height: 18px;
+	color: #6d6d6d;
+	background: #f6f6f6;
+}
+
+.appreciationWrapper {
+	background: #f6f6f6;
+	padding: 0px 12px 12px;
+}
+
+.appreciation {
+	float: right;
+	padding-left: 15px;
+	margin-left: 10px;
+	background-repeat: no-repeat;
+	background-position: center left;
+	background-size: 13px 12px;
+}
+
+.like {
+	color: #3c9244;
+}
+
+.appreciation.like {
+	background-image: url("/res/like.png");
+}
+
+.dislike {
+	color: #923c3c;
+}
+
+.appreciation.dislike {
+	background-image: url("/res/dislike.png");
+}
