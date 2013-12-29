@@ -4,7 +4,11 @@
 
 .inputWrapper > textarea,
 .inputWrapper > input{
+	display: block;
 	width: 100%;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 	border: 1px solid rgba(0,0,0,.3);
 	padding: 4px;
 	font-size: 18px;
@@ -19,7 +23,6 @@
 #reviewForm .button,
 #registrationForm .button,
 #loginForm .button{
-	border: none;
 	display: block;
 	margin: 0 auto;
 	padding: 0 30px;
