@@ -31,6 +31,10 @@ body{
 }
 
 .button{
+	border-bottom: none;
+	border-right: none;
+	border-left: none;
+	border-top: 1px solid #3c9244;
 	background: #3c9244;
 	box-shadow: 0 -3px 0 0 rgba(0,0,0,.3) inset;
 	background-clip: padding-box;
@@ -42,7 +46,7 @@ body{
 
 .button:active{
 	border-top: 1px solid transparent;
-	height: 49px;
+	box-shadow: 0 -2px 0 0 rgba(0,0,0,.3) inset;
 }
 
 .sectionHeader{
