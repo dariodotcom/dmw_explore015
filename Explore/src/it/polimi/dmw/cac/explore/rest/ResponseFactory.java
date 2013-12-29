@@ -21,6 +21,6 @@ public class ResponseFactory {
     }
 
     public static Response emptyResult() {
-        return Response.ok().build();
+        return Response.ok(new ResponseContainer(Details.empty())).build();
     }
 }

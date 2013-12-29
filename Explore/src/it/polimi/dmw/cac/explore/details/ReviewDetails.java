@@ -20,6 +20,7 @@ public class ReviewDetails extends Details {
     private int positiveAppreciations;
     private int negativeAppreciations;
     private String appreciation;
+    private boolean appreciable;
 
     public ReviewDetails(Review review, User requestor) {
         setId(KeyFactory.keyToString(review.getKey()));
@@ -28,6 +29,9 @@ public class ReviewDetails extends Details {
         grade = review.getGrade();
         positiveAppreciations = 0;
         negativeAppreciations = 0;
+        setAppreciable((requestor == null ? false : Queries.getAppreciation(
+            requestor,
+            review) == null));
 
         for (Appreciation a : review.getApprectiations()) {
             if (a.getValue() > 0) {
@@ -103,5 +107,14 @@ public class ReviewDetails extends Details {
 
     public void setAppreciation(String appreciation) {
         this.appreciation = appreciation;
+    }
+
+    @XmlElement(name="appreciable")
+    public boolean isAppreciable() {
+        return appreciable;
+    }
+
+    public void setAppreciable(boolean appreciable) {
+        this.appreciable = appreciable;
     }
 }
