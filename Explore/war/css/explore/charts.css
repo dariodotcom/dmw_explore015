@@ -11,5 +11,8 @@
 }
 
 .homeImage{
-	background-image: 
+	background: transparent url("/res/home.png") left no-repeat;
+	background-size: 435px 430px;
+	height: 435px;
+	background-position: center;
 }
