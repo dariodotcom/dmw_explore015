@@ -16,3 +16,21 @@
 	height: 435px;
 	background-position: center;
 }
+
+.welcomeContainer {
+	padding : .03px;
+	background-color :white ;
+	border-radius: 10px  ;
+	box-shadow: 0 1px 1px 0  rgba(0,0,0,.3);
+	box-shadow: 0 0 5px 0 rgba(0,128,0,.9) inset;
+	height : 160px;
+	margin: 150px 280px;
+	text-align: center ;
+	width : 250px;
+	font-family: Georgia,"Times New Roman","Century Schoolbook L",serif;
+	font-style: italic;
+}
+
+.linkHome{
+	color:#FF1090 ;
+}
