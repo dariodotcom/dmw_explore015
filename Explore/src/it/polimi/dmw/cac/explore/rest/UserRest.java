@@ -58,13 +58,15 @@ public class UserRest extends RestContainer {
     @GET
     @Path("current")
     public Response getCurrentUser() {
-        try {
-            String username = getSessionUsername();
-            UserController user = UserController.getUserChecked(username);
-            return ResponseFactory.from(user.getDetails());
-        } catch (ControllerException e) {
-            return ResponseFactory.from(e);
+
+        String username = getSessionUsername();
+        UserController user = UserController.getUser(username);
+        if (user == null) {
+            return ResponseFactory.emptyResult();
         }
+
+        return ResponseFactory.from(user.getDetails());
+
     }
 
     @GET
