@@ -17,19 +17,23 @@
 }
 
 #searchTermContainer input{
-	border: none;
+	border:none;
 	background: transparent;
+	font-size: 18px;
 }
 
 #searchTerm{
 	padding: 4px;
 	display: inline-block;
-	width: 200px;
+	width: 252px;
 	font-size: 16px;
 }
 
-#searchForm > .button{
-	border: none;
+#searchForm .button{
+	display: block;
+	margin: 10px auto;
+	padding: 0 30px;
+	font-size: 18px;
 }
 
 #searchResult .entry{
