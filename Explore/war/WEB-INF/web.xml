@@ -64,8 +64,12 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-	<!-- <servlet> <servlet-name>GWTServiceServlet</servlet-name> <servlet-class>org.slim3.gwt.server.rpc.GWTServiceServlet</servlet-class> 
-		<load-on-startup>1</load-on-startup> </servlet> -->
+	<servlet>
+		<description>AppServlet</description>
+		<servlet-name>AppServlet</servlet-name>
+		<jsp-file>index.html</jsp-file>
+	</servlet>
+
 
 	<servlet>
 		<servlet-name>KtrWjrServiceServlet</servlet-name>
@@ -78,17 +82,21 @@
 		<url-pattern>/slim3/gtx</url-pattern>
 	</servlet-mapping>
 
-	<!-- <servlet-mapping> <servlet-name>GWTServiceServlet</servlet-name> <url-pattern>*.s3gwt</url-pattern> 
-		</servlet-mapping> -->
-
 	<servlet-mapping>
 		<servlet-name>KtrWjrServiceServlet</servlet-name>
 		<url-pattern>/ktrwjr/ktrwjr/ktrwjr.s3gwt</url-pattern>
 	</servlet-mapping>
+
 	<servlet-mapping>
 		<servlet-name>JAX-RS</servlet-name>
 		<url-pattern>/api/*</url-pattern>
 	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>AppServlet</servlet-name>
+		<url-pattern>/*</url-pattern>
+	</servlet-mapping>
+
 	<security-constraint>
 		<web-resource-collection>
 			<url-pattern>*.jsp</url-pattern>
@@ -112,4 +120,8 @@
 			<role-name>admin</role-name>
 		</auth-constraint>
 	</security-constraint>
+
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
 </web-app>
