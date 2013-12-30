@@ -5,7 +5,6 @@ import org.slim3.datastore.Datastore;
 import com.google.appengine.api.datastore.Key;
 
 import it.polimi.dmw.cac.explore.Utils;
-import it.polimi.dmw.cac.explore.controller.ControllerException.Type;
 import it.polimi.dmw.cac.explore.controller.builder.AppreciationBuilder;
 import it.polimi.dmw.cac.explore.details.ReviewDetails;
 import it.polimi.dmw.cac.explore.model.Appreciation;
@@ -34,10 +33,13 @@ public class ReviewController {
     }
 
     public void appreciate(boolean positive) throws ControllerException {
-        if(requestor == null){
-            throw new ControllerException(Type.LOGIN_REQUIRED);
+        ControllerException.Type errorType =
+            Coherence.user(requestor).verifyAppreciation(review);
+
+        if (errorType != null) {
+            throw new ControllerException(errorType);
         }
-        
+
         Appreciation appreciation = Queries.getAppreciation(requestor, review);
         if (appreciation == null) {
             AppreciationBuilder

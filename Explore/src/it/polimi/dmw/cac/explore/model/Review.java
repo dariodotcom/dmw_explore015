@@ -20,7 +20,7 @@ public class Review implements Serializable {
         appreciationsRef =
             new InverseModelListRef<Appreciation, Review>(
                 Appreciation.class,
-                "authorRef",
+                "reviewRef",
                 this);
         authorRef = new ModelRef<User>(User.class);
         exhibitionRef = new ModelRef<Exhibition>(Exhibition.class);

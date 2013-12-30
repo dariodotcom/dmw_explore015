@@ -11,6 +11,7 @@ import it.polimi.dmw.cac.explore.controller.builder.ExhibitionBuilder;
 import it.polimi.dmw.cac.explore.controller.builder.ReviewBuilder;
 import it.polimi.dmw.cac.explore.controller.builder.TaggingBuilder;
 import it.polimi.dmw.cac.explore.details.ExhibitionDetails;
+import it.polimi.dmw.cac.explore.details.ReviewListDetails;
 import it.polimi.dmw.cac.explore.model.Exhibition;
 import it.polimi.dmw.cac.explore.model.User;
 import it.polimi.dmw.cac.explore.request.ExhibitionCreationRequest;
@@ -43,25 +44,23 @@ public class ExhibitionController {
 
     private User requestor;
     private Exhibition exhibition;
+    private Coherence userCoherence;
 
     private ExhibitionController(User requestor, Exhibition exhibition) {
         this.requestor = requestor;
         this.exhibition = exhibition;
+        this.userCoherence = Coherence.user(requestor);
     }
 
     public ExhibitionDetails getDetails() {
-        System.out.println(exhibition.getTaggings());
-        System.out.println(exhibition.getReviews());
         return new ExhibitionDetails(exhibition, requestor);
     }
 
     public void checkIn() throws ControllerException {
-        if (requestor == null) {
-            throw new ControllerException(Type.LOGIN_REQUIRED);
-        }
-
-        if (Queries.hasUserVisited(requestor, exhibition)) {
-            throw new ControllerException(Type.DUPLICATE_ENTITY);
+        ControllerException.Type errorType =
+            userCoherence.verifyCheckIn(exhibition);
+        if (errorType != null) {
+            throw new ControllerException(errorType);
         }
 
         CheckInBuilder
@@ -70,18 +69,14 @@ public class ExhibitionController {
             .exhibition(exhibition)
             .store();
 
-        // TODO store tags
-
         return;
     }
 
     public Key review(ReviewRequest request) throws ControllerException {
-        if (requestor == null) {
-            throw new ControllerException(Type.LOGIN_REQUIRED);
-        }
-
-        if (Queries.hasUserReviewed(requestor, exhibition)) {
-            throw new ControllerException(Type.DUPLICATE_ENTITY);
+        ControllerException.Type errorType =
+            userCoherence.verifyReview(exhibition);
+        if (errorType != null) {
+            throw new ControllerException(errorType);
         }
 
         if (!request.isValid()) {
@@ -97,6 +92,10 @@ public class ExhibitionController {
             .author(requestor)
             .exhibition(exhibition)
             .store();
+    }
+
+    public ReviewListDetails getReviews() {
+        return new ReviewListDetails(exhibition.getReviews(), requestor);
     }
 
 }
