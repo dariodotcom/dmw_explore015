@@ -30,20 +30,26 @@
 	color: #7d7d7d;;
 }
 
-#checkin{
+#checkinBtn,
+#reviewBtn{
 	width: 240px;
 	margin: 16px auto;
+	display: block;
 }
 
-#checkin > .text{
+#reviewBtn > .text,
+#checkinBtn > .text{
 	display: inline-block;
-	background-image: url("/res/checkin.png");
 	background-repeat: no-repeat;
 	background-size: 19px 30px;
 	background-position: center left;
 	font-weight: bold;
 	padding: 15px 15px 15px 25px;
 	vertical-align: baseline;
+}
+
+#checkinBtn > .text{
+	background-image: url("/res/checkin.png");
 }
 
 .review {
@@ -75,14 +81,23 @@
 	width: 17px;
 	background-size: 17px 17px;
 	background-repeat: no-repeat;
+	background-image: url("/res/star-empty.png");
+}
+
+.star:not(:first-child){
+	margin-left: 2px;
 }
 
 .star.full{
 	background-image: url("/res/star-full.png");
 }
 
-.star.empty{
-	background-image: url("/res/star-empty.png");
+.star.half{
+	background-image: url("/res/star-half.png");
+}
+
+.reviewCount{
+	margin-left: 10px;
 }
 
 .review > .text{
@@ -90,6 +105,18 @@
 	line-height: 18px;
 	color: #6d6d6d;
 	background: #f6f6f6;
+}
+
+.review .appreciation{
+	cursor: default;
+}
+
+.review:not(.appreciable) .appreciation{
+	opacity: .55;
+}
+
+.review.appreciable .appreciation{
+	cursor: pointer;
 }
 
 .appreciationWrapper {
@@ -122,3 +149,6 @@
 	background-image: url("/res/dislike.png");
 }
 
+.appreciationWrapper{
+	height: 10px;
+}
