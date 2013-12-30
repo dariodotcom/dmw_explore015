@@ -1,8 +1,9 @@
 @import url(zero.css);
+@import url(clearfix.css);
 @import url(global.css);
 @import url(menu.css);
 @import url(header.css);
 @import url(exhibition.css);
 @import url(search.css);
 @import url(authentication.css);
-@import url(charts.css)
+@import url(charts.css);

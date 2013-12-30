@@ -7,6 +7,9 @@
 <link rel="stylesheet" type="text/css" href="/css/explore/explore.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="/js/core.js"></script>
+<script type="text/javascript" src="/js/api.js"></script>
+<script type="text/javascript" src="/js/view.js"></script>
+<script type="text/javascript" src="/js/navigation.js"></script>
 <title>EXPlore</title>
 </head>
 <body>
@@ -38,26 +41,25 @@
 				<div id="registrationView" class="view">
 					<form id="registrationForm">
 						<div class="inputWrapper">
-							<input type="text" placeholder="username" id ="username"/>
+							<input type="text" placeholder="username" name="username"/>
 						</div>
 						<div class="inputWrapper">
-							<input type="password" placeholder="password" id="password"/>
+							<input type="password" placeholder="password" name="password"/>
 						</div>
 						<div class="inputWrapper">
-							<input type="password" placeholder="confirm password" id="confirmPassword"/>
+							<input type="password" placeholder="confirm password" name="confirmPassword"/>
 						</div>
 						<div class="inputWrapper">
-							<input type="text" placeholder="name" id ="name"/>
+							<input type="text" placeholder="name" name="name"/>
 						</div>
 						<div class="inputWrapper">
-							<input type="text" placeholder="surname" id ="surname"/>
+							<input type="text" placeholder="surname" name="surname"/>
 						</div>
 						<input type="submit" class="button" value="register"/>
 						
 					</form>
 				</div>
 				<div id="homeView" class="view">
-					
 					<div class="homeImage">&nbsp;
 						<div class="welcomeContainer">
 							<div>
@@ -187,59 +189,20 @@
 				</div>
 				<div id="exhibitionView" class="view">
 					<div id="exhibitionImage">
-						<span class="exhibitionName">Decorateur d'espace de view</span>
+						<span class="exhibitionName"></span>
 					</div>
 					<div id="description">
-						<p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+						<p class="text"></p>
 						<br/>
-						<div class="stars">
-							<span class="star full">&nbsp;</span>
-							<span class="star full">&nbsp;</span>
-							<span class="star empty">&nbsp;</span>
-							<span class="star empty">&nbsp;</span>
-							<span class="star empty">&nbsp;</span>
-							<span class="reviewCount">&nbsp; 2 reviews</span>
-						</div>
+						<div class="stars"></div>
 					</div>
-					<div id="checkin" class="button">
+					<div id="checkinBtn" class="button">
 						<span class="text">I am here</span>
 					</div>
-					<div id="reviewContainer">
-						<div class="review">
-							<div class="header">
-								<span class="author">Dario Archetti</span>
-								<div class="stars">
-									<span class="star full">&nbsp;</span>
-									<span class="star full">&nbsp;</span>
-									<span class="star full">&nbsp;</span>
-									<span class="star empty">&nbsp;</span>
-									<span class="star empty">&nbsp;</span>
-								</div>
-							</div>
-							<p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-							<div class="appreciationWrapper">
-								<span class="userAppreciation like">Liked.</span>
-								<a class="appreciation dislike">12</a><a class="appreciation like">245</a>
-							</div>
-						</div>
-						<div class="review">
-							<div class="header">
-								<span class="author">Claudia Colella</span>
-								<div class="stars">
-									<span class="star full">&nbsp;</span>
-									<span class="star full">&nbsp;</span>
-									<span class="star empty">&nbsp;</span>
-									<span class="star empty">&nbsp;</span>
-									<span class="star empty">&nbsp;</span>
-								</div>
-							</div>
-							<p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-							<div class="appreciationWrapper">
-								<span class="userAppreciation dislike">Disliked.</span>
-								<a class="appreciation dislike">154</a><a class="appreciation like">2</a>
-							</div>
-						</div>
-					</div>
+					<a id="reviewBtn" class="button" data-local="true">
+						<span class="text">Review</span>
+					</a>
+					<div id="reviewContainer"></div>
 				</div>
 			</div>
 		</div>
