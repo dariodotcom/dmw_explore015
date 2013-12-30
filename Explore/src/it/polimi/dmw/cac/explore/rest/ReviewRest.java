@@ -41,7 +41,7 @@ public class ReviewRest extends RestContainer {
 
         @Path("appreciate/{type}")
         @GET
-        public Response doAppreciate(@PathParam("pos") String type) {
+        public Response doAppreciate(@PathParam("type") String type) {
             try {
                 ReviewController review = getController();
                 review.appreciate(type.equals(APPRECIATION_POSITIVE));

@@ -3,7 +3,7 @@ package it.polimi.dmw.cac.explore.details;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.polimi.dmw.cac.explore.controller.Queries;
+import it.polimi.dmw.cac.explore.controller.Coherence;
 import it.polimi.dmw.cac.explore.model.Exhibition;
 import it.polimi.dmw.cac.explore.model.Tagging;
 import it.polimi.dmw.cac.explore.model.User;
@@ -22,21 +22,17 @@ public class ExhibitionDetails extends Details {
 
     private int grade;
     private boolean reviewable;
-    private Boolean visited;
+    private boolean checkinable;
 
     public ExhibitionDetails(Exhibition exhibition, User requestor) {
+        Coherence userCoherence = Coherence.user(requestor);
+
         id = KeyFactory.keyToString(exhibition.getKey());
         name = exhibition.getName();
         description = exhibition.getDescription();
         photoUrl = exhibition.getPhotoUrl();
-        visited =
-            requestor == null ? false : Queries.hasUserVisited(
-                requestor,
-                exhibition);
-        reviewable =
-            requestor == null ? false : !Queries.hasUserReviewed(
-                requestor,
-                exhibition);
+        checkinable = userCoherence.verifyCheckIn(exhibition) == null;
+        reviewable = userCoherence.verifyReview(exhibition) == null;
         computeTags(exhibition);
     }
 
@@ -94,13 +90,13 @@ public class ExhibitionDetails extends Details {
         this.reviewable = reviewable;
     }
 
-    @XmlElement(name = "visited")
-    public Boolean getVisited() {
-        return visited;
+    @XmlElement(name = "checkinable")
+    public boolean isCheckinable() {
+        return checkinable;
     }
 
-    public void setVisited(Boolean visited) {
-        this.visited = visited;
+    public void setCheckinable(boolean checkinable) {
+        this.checkinable = checkinable;
     }
 
     @XmlElement(name = "tags")

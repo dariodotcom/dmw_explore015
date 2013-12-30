@@ -1,5 +1,6 @@
 package it.polimi.dmw.cac.explore.details;
 
+import it.polimi.dmw.cac.explore.controller.Coherence;
 import it.polimi.dmw.cac.explore.controller.Queries;
 import it.polimi.dmw.cac.explore.model.Appreciation;
 import it.polimi.dmw.cac.explore.model.Review;
@@ -24,14 +25,13 @@ public class ReviewDetails extends Details {
 
     public ReviewDetails(Review review, User requestor) {
         setId(KeyFactory.keyToString(review.getKey()));
-        authorUsername = requestor.getUsername();
+        authorUsername = review.getAuthor().getUsername();
         text = review.getText();
         grade = review.getGrade();
         positiveAppreciations = 0;
         negativeAppreciations = 0;
-        setAppreciable((requestor == null ? false : Queries.getAppreciation(
-            requestor,
-            review) == null));
+        appreciable =
+            Coherence.user(requestor).verifyAppreciation(review) == null;
 
         for (Appreciation a : review.getApprectiations()) {
             if (a.getValue() > 0) {
@@ -41,9 +41,16 @@ public class ReviewDetails extends Details {
             }
         }
 
-        Appreciation appr = Queries.getAppreciation(requestor, review);
-        appreciation =
-            appr == null ? null : appr.getValue() > 0 ? "POSITIVE" : "NEGATIVE";
+        if (requestor == null) {
+            appreciation = null;
+        } else {
+
+            Appreciation appr = Queries.getAppreciation(requestor, review);
+            appreciation =
+                appr == null ? null : appr.getValue() > 0
+                    ? "POSITIVE"
+                    : "NEGATIVE";
+        }
     }
 
     @XmlElement(name = "id")
@@ -82,7 +89,7 @@ public class ReviewDetails extends Details {
         this.grade = mark;
     }
 
-    @XmlElement(name = "positive")
+    @XmlElement(name = "positiveAppreciations")
     public int getPositiveAppreciations() {
         return positiveAppreciations;
     }
@@ -91,7 +98,7 @@ public class ReviewDetails extends Details {
         this.positiveAppreciations = positiveAppreciations;
     }
 
-    @XmlElement(name = "negative")
+    @XmlElement(name = "negativeAppreciations")
     public int getNegativeAppreciations() {
         return negativeAppreciations;
     }
@@ -100,7 +107,7 @@ public class ReviewDetails extends Details {
         this.negativeAppreciations = negativeAppreciations;
     }
 
-    @XmlElement(name = "appreciation")
+    @XmlElement(name = "userAppreciation")
     public String getAppreciation() {
         return appreciation;
     }
@@ -109,7 +116,7 @@ public class ReviewDetails extends Details {
         this.appreciation = appreciation;
     }
 
-    @XmlElement(name="appreciable")
+    @XmlElement(name = "appreciable")
     public boolean isAppreciable() {
         return appreciable;
     }

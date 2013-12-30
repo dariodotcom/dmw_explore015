@@ -81,6 +81,17 @@ public class ExhibitionRest extends RestContainer {
                 return ResponseFactory.from(e);
             }
         }
+        
+        @Path("reviews")
+        @GET
+        public Response getReviews(){
+            try {
+                ExhibitionController exhibition = getController();
+                return ResponseFactory.from(exhibition.getReviews());
+            } catch (ControllerException e) {
+                return ResponseFactory.from(e);
+            }
+        }
 
         private ExhibitionController getController() throws ControllerException {
             UserController user = UserController.getUser(getSessionUsername());
