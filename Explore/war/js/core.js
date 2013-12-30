@@ -28,9 +28,7 @@ $(function __INITIALIZER__(){
 		var target = e.currentTarget;
 		if(target.dataset.local){
 			e.preventDefault();
-			Explore.log("click to " + target.href + " intercepted");
-
+			Explore.NavigationManager.handleLinkClick(target.href);
 		}
 	});
-
-})
+});

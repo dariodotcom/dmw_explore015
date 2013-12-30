@@ -21,6 +21,7 @@ public class ExhibitionDetails extends Details {
     private List<TagDetail> tags;
 
     private int grade;
+    private int reviewCount;
     private boolean reviewable;
     private boolean checkinable;
 
@@ -33,6 +34,7 @@ public class ExhibitionDetails extends Details {
         photoUrl = exhibition.getPhotoUrl();
         checkinable = userCoherence.verifyCheckIn(exhibition) == null;
         reviewable = userCoherence.verifyReview(exhibition) == null;
+        setReviewCount(exhibition.getReviews().size());
         computeTags(exhibition);
     }
 
@@ -127,5 +129,14 @@ public class ExhibitionDetails extends Details {
             tagDetail.setWeight(t.getWeight() / maxWeight);
             tags.add(tagDetail);
         }
+    }
+
+    @XmlElement(name="reviewCount")
+    public int getReviewCount() {
+        return reviewCount;
+    }
+
+    public void setReviewCount(int reviewCount) {
+        this.reviewCount = reviewCount;
     }
 }
