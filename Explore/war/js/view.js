@@ -144,7 +144,7 @@ ExhibitionView.prototype = {
 		this.name.html(data.name);
 		this.description.html(data.description);
 		this.stars.setValue(data.grade);
-		this.stars.setCount(21);
+		this.stars.setCount(data.reviewCount);
 
 		this.updateButtonVisibility(data);
 	},
@@ -349,7 +349,12 @@ Explore.addInitializer(function(){
 	Explore.ViewManager = new ViewManager();
 	LoginView.init();
 	RegistrationView.init();
-	(new ExhibitionView()).showExhibition("aglub19hcHBfaWRyEQsSCkV4aGliaXRpb24YjwUM", function(){
-		Explore.ViewManager.showView("exhibition");
-	});
+
+	var exhibitionView = new ExhibitionView();
+	ViewManager.prototype.showExhibition = function(id){
+		exhibitionView.showExhibition(id);
+		this.showView("exhibition");
+	}
+
+	Explore.ViewManager.showView("search");
 });
