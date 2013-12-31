@@ -25,6 +25,18 @@
 		</div>
 		<div id="page">
 			<div id="viewContainer">
+				<div id="homeView" class="view">
+					<div class="homeImage">&nbsp;</div>
+					<div class="welcomeContainer">
+						<div>
+							<p class="intro"> Are you new on Explore? Please <a href="#" class="linkHome" data-local="true"> register</a> and enjoy your visit</p>
+						</div>
+						<div>
+							<p class="intro">Already have an account? <a href="#" class="linkHome" data-local="true">Sign-in</a></p>
+						</div>
+					</div>		
+				</div>
+				
 				<div id="loginView" class="view">
 					<form id="loginForm">
 						<div class="inputWrapper">
@@ -38,6 +50,7 @@
 						
 					</form>
 				</div>
+
 				<div id="registrationView" class="view">
 					<form id="registrationForm">
 						<div class="inputWrapper">
@@ -59,89 +72,21 @@
 						
 					</form>
 				</div>
-				<div id="homeView" class="view">
-					<div class="homeImage">&nbsp;
-						<div class="welcomeContainer">
-							<div>
-								<p class="intro"> Are you new on Explore? Please <a href="#" class="linkHome"> register</a> and enjoy your visit</p>
-							</div>
-							<div>
-								<p class="intro">Already have an account? <a href="#" class="linkHome">Sign-in</a></p>
-							</div>
-						</div>
-					</div>
-				</div>
+
 				<div id="chartView" class="view">
 					<p class="chartIntro">Ever green places</p>
-					<div class="listContainer" id="chartResult">
-						<div class="entryContainer">
-							<a>
-								<div class="entry">
-									<span class="thumbnail">&nbsp;</span>
-									<div class="chartElemDescriptor">
-										<div class="text">Decorateur d'espace de view</div>
-										<div class="stars">
-											<span class="star full">&nbsp;</span>
-											<span class="star full">&nbsp;</span>
-											<span class="star full">&nbsp;</span>
-											<span class="star empty">&nbsp;</span>
-											<span class="star empty">&nbsp;</span>
-										</div>	
-									</div>
-									<span class="arrow">&nbsp;</span>
-								</div>	
-							</a>
-						</div>
-						<div class="entryContainer">
-							<a>
-								<div class="entry">
-									<span class="thumbnail">&nbsp;</span>
-									<div class="chartElemDescriptor">
-										<div class="text">Decorateur d'espace de view</div>
-										<div class="stars">
-											<span class="star full">&nbsp;</span>
-											<span class="star full">&nbsp;</span>
-											<span class="star full">&nbsp;</span>
-											<span class="star empty">&nbsp;</span>
-											<span class="star empty">&nbsp;</span>
-										</div>	
-									</div>
-									<span class="arrow">&nbsp;</span>
-								</div>	
-							</a>
-						</div>
-						<div class="entryContainer">
-							<a>
-								<div class="entry">
-									<span class="thumbnail">&nbsp;</span>
-									<div class="chartElemDescriptor">
-										<div class="text">Decorateur d'espace de view</div>
-										<div class="stars">
-											<span class="star full">&nbsp;</span>
-											<span class="star full">&nbsp;</span>
-											<span class="star full">&nbsp;</span>
-											<span class="star empty">&nbsp;</span>
-											<span class="star empty">&nbsp;</span>
-										</div>	
-									</div>
-									<span class="arrow">&nbsp;</span>
-								</div>	
-							</a>
-						</div>
+					<div class="listContainer" id="chartResult"></div>
+					<div class="messageContainer">
+						<span class="message">No results found.</span>
 					</div>
 				</div>
+				
 				<div id="reviewCreationView" class="view">
 					<form id="reviewForm">
 						<p class="intro">You are reviewing:<br/><span class="exhibitionName">Decorateur d'espace de view</span>.</p>
 						<div class="inputWrapper">
 							<p class="inputDescription">How much did you enjoy this place?</p>
-							<div class="stars">
-								<span class="star full">&nbsp;</span>
-								<span class="star full">&nbsp;</span>
-								<span class="star full">&nbsp;</span>
-								<span class="star empty">&nbsp;</span>
-								<span class="star empty">&nbsp;</span>
-							</div>	
+							<div class="stars"></div>	
 						</div>					
 						<div class="inputWrapper">
 							<p class="inputDescription">What do you think about it?</p>
@@ -149,44 +94,31 @@
 						</div>
 						<div class="inputWrapper">
 							<p class="inputDescription">Describe this place in three words</p>
-							<input type="text" placeholder="#tag" id ="tag"/>
+							<div id="tagwrapper">
+								<div class="container"></div><input type="text" id="tagInput" maxlength="14"/>
+							</div>
 						</div>
 						<input type="submit" class="button" value="review"/>
 					</form>
 				</div>
+
 				<div id="searchView" class="view">
 					<div id="searchOverlay" class="overlay">
 						<form id="searchForm" action="#">
 							<div id="searchTermContainer">
 								<div><input type="text" id="searchTerm" placeholder="exhibition name"/></div>
-								<input type="reset" value="X"/>
-							</div>
-							<div>
-								<input class="button" type="submit" value="find"/>
+								<input type="reset" class="intButton reset"/>
+								<input type="submit" class="intButton submit"/>
 							</div>
 						</form>
 					</div>
 					<div class="listContainer" id="searchResult">
-						<div class="entryContainer">
-							<a class="entry" id="myProfile">
-								<span class="thumbnail">&nbsp;</span>
-								<span class="text">Decorateur d'espace de view</span>
-								<span class="arrow">&nbsp;</span></a>
-						</div>
-						<div class="entryContainer">
-							<a class="entry" id="myProfile">
-								<span class="thumbnail">&nbsp;</span>
-								<span class="text">Decorateur d'espace de view</span>
-								<span class="arrow">&nbsp;</span></a>
-						</div>
-						<div class="entryContainer">
-							<a class="entry" id="myProfile">
-								<span class="thumbnail">&nbsp;</span>
-								<span class="text">Decorateur d'espace de view</span>
-								<span class="arrow">&nbsp;</span></a>
-						</div>
+					</div>
+					<div class="messageContainer">
+						<span class="message">No results found.</span>
 					</div>
 				</div>
+
 				<div id="exhibitionView" class="view">
 					<div id="exhibitionImage">
 						<span class="exhibitionName"></span>

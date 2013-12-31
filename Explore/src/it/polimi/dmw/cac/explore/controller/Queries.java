@@ -1,7 +1,11 @@
 package it.polimi.dmw.cac.explore.controller;
 
+import java.util.List;
+
 import org.slim3.datastore.Datastore;
 
+import it.polimi.dmw.cac.explore.controller.filters.ByNameFilter;
+import it.polimi.dmw.cac.explore.controller.filters.ExhibitionSorter;
 import it.polimi.dmw.cac.explore.meta.*;
 import it.polimi.dmw.cac.explore.model.Appreciation;
 import it.polimi.dmw.cac.explore.model.Exhibition;
@@ -62,6 +66,24 @@ public class Queries {
             .filter(tagging.exhibitionRef.equal(exhibition.getKey()))
             .filter(tagging.tagRef.equal(tag.getKey()))
             .asSingle();
+    }
+
+    public static List<Exhibition> getExhibitionByName(String term) {
+        ExhibitionMeta exhibition = ExhibitionMeta.get();
+        return Datastore
+            .query(exhibition)
+            .filterInMemory(new ByNameFilter(term))
+            .sortInMemory(new ExhibitionSorter())
+            .asList();
+    }
+
+    public static List<Exhibition> getTopExhibitions() {
+        ExhibitionMeta exhibition = ExhibitionMeta.get();
+        return Datastore
+            .query(exhibition)
+            .sort(exhibition.name.desc)
+            .limit(10)
+            .asList();
     }
 
 }

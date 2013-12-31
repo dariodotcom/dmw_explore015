@@ -56,6 +56,14 @@ Api.Exhibition = function(id){
 	this.context = "/exhibition/id/" + id;
 }
 
+Api.Exhibition.search = function _search(term, onSuccess, onError){
+	ApiClient.get("/exhibition/search/" + term, onSuccess, onError);
+}
+
+Api.Exhibition.top = function _search(onSuccess, onError){
+	ApiClient.get("/exhibition/top", onSuccess, onError);
+}
+
 Api.Exhibition.prototype = {
 	getDetails: function getDetail(onSuccess, onError){
 		ApiClient.get(this.context, onSuccess, onError);

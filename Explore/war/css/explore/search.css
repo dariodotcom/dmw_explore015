@@ -1,65 +1,107 @@
 #searchForm{
-	padding: 12px 0;
-	margin: 0 auto;
-	width: 300px;
+	position: relative;
+	padding: 8px;
 }
 
 #searchTermContainer {
-	width: 294px;
-	display: inline-block;
-	padding: 2px;
+	position: relative;
+	padding: 8px;
 	border: 1px solid rgba(0,0,0,.3);
-	background: white;
+	font-size: 22px;
+	border-radius: 2px;
 }
 
-#searchTermContainer div{
-	display: inline-block;
+#searchTermContainer > div{
+	margin-right: 72px;
 }
 
 #searchTermContainer input{
 	border:none;
 	background: transparent;
-	font-size: 18px;
+}
+
+#searchTermContainer .intButton{
+	position: absolute;
+	top: 8px;
+	font-size: 0;
+	height: 28px;
+	width: 28px;
+	background-size: 28px 28px;
+}
+
+#searchTermContainer .intButton.submit{
+	background-image: url("/res/input-submit.png");
+	right: 8px;
+}
+
+#searchTermContainer .intButton.reset{
+    background-image: url("/res/input-reset.png");
+	right: 44px;
+}
+
+#searchTermContainer .intButton.submit:active{
+	background-image: url("/res/input-submit-active.png");
+}
+
+#searchTermContainer .intButton.reset:active{
+    background-image: url("/res/input-reset-active.png");
 }
 
 #searchTerm{
-	padding: 4px;
+	width: 100%;
+	height: 27px;
 	display: inline-block;
-	width: 252px;
-	font-size: 16px;
+	font-size: 22px;
 }
 
-#searchForm .button{
+.entry:link{
+	text-decoration: none;
+}
+
+.searchResultItem .thumbnail{
+	position: absolute;
+	width: 80px;
+	height: 60px;
+	background-image: url("http://landscaping-pool.com/images/8expo3.jpg");
+	background-size: cover;
+}
+
+.searchResultItem .description{
 	display: block;
-	margin: 10px auto;
-	padding: 0 30px;
-	font-size: 18px;
+	margin: 0 18px 0 88px;
 }
 
-#searchResult .entry{
-	padding: 5px;
-}
-
-
-#searchResult .text{
-	max-width: 150px;
+.searchResultItem .description .name,
+.searchResultItem .description .stars{
+	display: block;
+	max-width: 100%;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
 
-#searchResult .text,
-#searchResult .arrow {
-	line-height: 60px;
+.searchResultItem .description .stars{
+	margin-top: 8px;
+}
+
+.searchResultItem .entry{
+	position: relative;
+	padding: 8px;
+	height: 60px;
+}
+
+.searchResultItem .entry .arrow {
+	position: absolute;
+	top: 8px;
+	right: 8px;
 	height: 60px;
 	vertical-align: bottom;
 	margin-left: 10px;
 }
 
-.thumbnail{
-	width: 80px;
-	height: 60px;
-	background: red;
-	background-image: url("http://landscaping-pool.com/images/8expo3.jpg");
-	background-size: cover;
+.messageContainer{
+	text-align: center;
+	font-size: 20px;
+	margin-top: 50%;
+	color: #6d6d6d;
 }

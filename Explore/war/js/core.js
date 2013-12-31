@@ -15,6 +15,14 @@ Explore.showError = function(errorText){
 	Explore.log(errorText);
 }
 
+Explore.captureClick = function(e){
+	var target = e.currentTarget;
+	if(target.dataset.local){
+		e.preventDefault();
+		Explore.NavigationManager.handleLinkClick(target.href);
+	}
+}
+
 Explore.addInitializer = function(initializer){
 	initializerList.push(initializer);
 }
@@ -24,11 +32,7 @@ $(function __INITIALIZER__(){
 		initializerList[i].call(window);
 	}
 
-	$("a").click(function(e){
-		var target = e.currentTarget;
-		if(target.dataset.local){
-			e.preventDefault();
-			Explore.NavigationManager.handleLinkClick(target.href);
-		}
-	});
+	$("a").click(Explore.captureClick);
+
+	Explore.ViewManager.showView("home");
 });
