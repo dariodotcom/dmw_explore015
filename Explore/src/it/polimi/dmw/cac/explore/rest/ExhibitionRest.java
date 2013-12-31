@@ -35,7 +35,13 @@ public class ExhibitionRest extends RestContainer {
     @Path("search/{term}")
     @GET
     public Response doSearch(@PathParam("term") String term) {
-        return null;
+        return ResponseFactory.from(ExhibitionController.search(term));
+    }
+
+    @Path("top")
+    @GET
+    public Response getTop() {
+        return ResponseFactory.from(ExhibitionController.top());
     }
 
     @Produces(MediaType.APPLICATION_JSON)
@@ -81,10 +87,10 @@ public class ExhibitionRest extends RestContainer {
                 return ResponseFactory.from(e);
             }
         }
-        
+
         @Path("reviews")
         @GET
-        public Response getReviews(){
+        public Response getReviews() {
             try {
                 ExhibitionController exhibition = getController();
                 return ResponseFactory.from(exhibition.getReviews());

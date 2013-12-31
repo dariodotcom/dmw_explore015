@@ -24,7 +24,7 @@
 
 #header .button{
 	display: block;
-	height: 47px;
+	height: 46px;
 	width: 44px;
 }
 
@@ -39,7 +39,7 @@
 	background-position: center;
 }
 
-#header .button[open]{
+#header .button.open{
 	background-color: #f4f4f4;
 	box-shadow: none;
 }
@@ -60,7 +60,7 @@
 	background-image: url("/res/icon-menu.png");
 }
 
-#buttonFind[open] .icon{
+#buttonFind.open .icon{
 	background-image: url("/res/icon-find-green.png");
 }
 

@@ -5,7 +5,16 @@ var ViewManager = function _viewManager() {
 	this.views["search"] = $("#searchView");
 	this.views["exhibition"] = $("#exhibitionView");
 	this.views["login"] = $("#loginView");
+	this.views["home"] = $("#homeView");
+	this.views["chart"] = $("#chartView");
 
+	this.exhibitionView = new ExhibitionView();
+	this.reviewView = new ReviewView();
+	this.chartView = new ChartView();
+
+	LoginView.init();
+	RegistrationView.init();
+	new SearchView();
 }
 
 ViewManager.prototype = {
@@ -24,7 +33,20 @@ ViewManager.prototype = {
 
 		newView.addClass("current");
 		this.currentView = newView;
+	},
+	showReviewForm: function _showReviewForm(exhibitionId, exhibitionName){
+		this.reviewView.setReviewExhibition(exhibitionId, exhibitionName);
+		this.showView("reviewCreation");
+	},
+	showExhibition: function _showExhibition(id){
+		this.exhibitionView.showExhibition(id);
+		this.showView("exhibition");
+	},
+	showChartView: function _showChartView(){
+		this.chartView.update();
+		this.showView("chart");
 	}
+
 };
 
 // LoginView
@@ -215,53 +237,6 @@ ExhibitionView.prototype = {
 	}
 }
 
-
-// Tools
-var Stars = function(jElem, interactive, withCount){
-	this.interactive = interactive;
-	this.stars = [];
-
-	if(interactive){
-		jElem.addClass("interactive");
-	}
-
-	for(var i=0; i<5; i++){
-		var star = $("<span class=\"star\">&nbsp;</span>");
-		this.stars.push(star);
-		star.appendTo(jElem);
-	}
-
-	if(withCount){
-		var count = this.count = $("<span class=\"reviewCount\"></span>");
-		count.appendTo(jElem);
-	}
-}
-
-Stars.prototype = {
-	setValue: function(value){
-		for(var i = 0; i < 5; i++){
-			if(value < i){
-				return;
-			}
-
-			if(value >= i + 1){
-				this.stars[i].removeClass("half");
-				this.stars[i].addClass("full");
-				continue;
-			}
-
-			if(value >= i + 0.5){
-				this.stars[i].addClass("half");
-				this.stars[i].removeClass("full");
-				return;
-			}
-		}
-	},
-	setCount: function(num){
-		this.count.html(num + " review" + (num > 1 ? "s" : ""));
-	}
-}
-
 var Review = function(reviewData){
 	this.review = reviewData;
 	var elem = this.htmlElem = this.model.clone();
@@ -345,16 +320,245 @@ Review.prototype = {
 	}
 }
 
-Explore.addInitializer(function(){
-	Explore.ViewManager = new ViewManager();
-	LoginView.init();
-	RegistrationView.init();
+var SearchView = function(){
+	this.emptyMessage = $("#searchView .messageContainer");
+	this.resultContainer = $("#searchResult");
+	this.searchTerm = $("#searchTerm");
 
-	var exhibitionView = new ExhibitionView();
-	ViewManager.prototype.showExhibition = function(id){
-		exhibitionView.showExhibition(id);
-		this.showView("exhibition");
+	this.emptyMessage.hide();
+	$("#searchForm").submit(this.performSearch.bind(this));
+}
+
+SearchView.prototype = {
+	performSearch: function _performSearch(e){
+		e.preventDefault();
+		var term = this.searchTerm.val();
+
+		if(term.length == 0){
+			return;
+		}
+
+		Api.Exhibition.search(term,
+			this.onSearchResults.bind(this),
+			this.onSearchError.bind(this));
+	},
+
+	onSearchResults: function _onSearchResults(data){
+		var results = data.results;
+
+		if(results.length == 0){
+			this.resultContainer.hide();
+			this.emptyMessage.show();
+			return;
+		}
+
+		this.emptyMessage.hide();
+		this.resultContainer.empty();
+		
+		for(var i = 0; i < results.length; i++){
+			var result = new SearchResult(results[i]);
+			this.resultContainer.append(result.getHtml());
+		}
+
+		this.resultContainer.show();
+		Explore.log(data.results);
+	},
+
+	onSearchError: function _onSearchError(data){
+		Explore.showError(data);
+	}
+}
+
+var ChartView = function(){
+	this.emptyMessage = $("#chartView .messageContainer");
+	this.resultContainer = $("#chartResult");
+	this.emptyMessage.hide();
+}
+
+ChartView.prototype = {
+	update: function _update(){
+		Api.Exhibition.top(
+			SearchView.prototype.onSearchResults.bind(this),
+			SearchView.prototype.onSearchError.bind(this)
+		)
 	}
 
-	Explore.ViewManager.showView("search");
+}
+
+SearchResult = function(data){
+	var htmlElem = this.htmlElem = this.model.clone();
+	htmlElem.find(".name").html(data.name);
+	new Stars(htmlElem.find(".stars"), false, false).setValue(data.grade);
+	var link = htmlElem.find(".entry");
+	link.attr("href","/exhibition/" + data.id);
+	link.click(Explore.captureClick);
+}
+
+SearchResult.prototype = {
+	model: $("<div class=\"entryContainer searchResultItem\"></div>")
+		.append(
+			$("<a class=\"entry\" data-local=\"true\"></a>")
+				.append($("<span class=\"thumbnail\"></span>"))
+				.append($("<span class=\"description\"></span>")
+					.append($("<span class=\"name\"></span>"))
+					.append($("<span class=\"stars\"></span>")))
+				.append($("<span class=\"arrow\"></span>"))),
+	getHtml: function _getHtml(){
+		return this.htmlElem;
+	}				
+}
+
+ReviewView = function(){
+	this.id="";
+	this.exhibitionName = $("#reviewCreationView .exhibitionName");
+	this.stars = new Stars($("#reviewCreationView .stars"), true, false);
+	this.commentField = $("#comment");
+	this.tagController = new TagController($("#tagInput"), $("#tagwrapper .container"));
+
+	$("#reviewForm").submit(this.handleFormSubmit.bind(this));
+}
+
+ReviewView.prototype = {
+	setReviewExhibition: function _setReviewExhibition(id, name){
+		this.id = id;
+		this.exhibitionName.html(name);
+	},
+
+	handleFormSubmit: function _handleFormSubmit(e){
+		e.preventDefault();
+
+		if(this.id==""){
+			return;
+		}
+
+		var reviewData =  {
+			grade: this.stars.getValue(),
+			text: this.commentField.val(),
+			tags: this.tagController.getTags()
+		}
+
+		new Api.Exhibition(this.id).review(reviewData,
+			this.handleReviewSuccess.bind(this),
+			this.handleReviewError.bind(this));
+	},
+
+	handleReviewError: function _handleReviewError(data){
+		Explore.showError(data);
+	},
+
+	handleReviewSuccess: function _handleReviewSuccess(){
+		Explore.NavigationManager.navigateTo("/exhibition/" + this.id);
+	}
+}
+
+var TagController = function(input, tagContainer){
+	this.tags = [];
+	this.elems = [];
+	this.input = input;
+	this.tagContainer = tagContainer;
+
+	input.keydown(this.handleKeyDown.bind(this));
+}
+
+TagController.prototype = {
+	tagModel: $("<span class=\"tag\"></span>"),
+	getTags: function _getTags(){
+		return this.tags;
+	},
+	handleKeyDown: function _handleKeyDown(e){
+		switch(e.which){
+		case 13: //Enter
+			e.preventDefault();
+			if(this.tags.length < 3){
+				var tag = this.input.val();
+				this.input.val("");
+
+				if(!/^#/i.test(tag)){
+					tag = "#" + tag;
+				}
+
+				this.tags.push(tag);
+
+				var elem = this.tagModel.clone();
+				elem.html(tag);
+				this.tagContainer.append(elem);
+				this.elems.push(elem);
+			}
+
+			break;
+
+		case 8: //Backspace
+			if(this.input.val().length > 0 || this.tags.length == 0){
+				return;
+			}
+
+			e.preventDefault();
+			this.elems.pop().remove();
+			this.input.val(this.tags.pop());
+			
+			break;
+
+		case 32: // Space
+			e.preventDefault();
+			break;
+		default:
+			if(this.tags.length == 3){
+				e.preventDefault();
+			}
+		}
+	}
+}
+
+
+// Tools
+var Stars = function(jElem, interactive, withCount){
+	this.interactive = interactive;
+	this.stars = [];
+	this.value = 0;
+
+	if(interactive){
+		jElem.addClass("interactive");
+	}
+
+	for(var i=0; i<5; i++){
+		var star = $("<span class=\"star\">&nbsp;</span>");
+		this.stars.push(star);
+		star.appendTo(jElem);
+		if(interactive){
+			star.click(this.setValue.bind(this, i+1));
+		}
+	}
+
+	if(withCount){
+		var count = this.count = $("<span class=\"reviewCount\"></span>");
+		count.appendTo(jElem);
+	}
+}
+
+Stars.prototype = {
+	setValue: function(value){
+		this.value = value;
+		for(var i = 0; i < 5; i++){
+			if(i + 1 <= value){
+				this.stars[i].removeClass("half");
+				this.stars[i].addClass("full");
+			} else if(i + 0.5 <= value){
+				this.stars[i].addClass("half");
+				this.stars[i].removeClass("full");
+			}else{
+				this.stars[i].removeClass("half");
+				this.stars[i].removeClass("full");
+			}
+		}
+	},
+	getValue: function _getValue(){
+		return this.value;
+	},
+	setCount: function(num){
+		this.count.html(num + " review" + (num > 1 ? "s" : ""));
+	}
+}
+
+Explore.addInitializer(function(){
+	Explore.ViewManager = new ViewManager();
 });
