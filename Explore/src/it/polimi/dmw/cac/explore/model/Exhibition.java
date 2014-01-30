@@ -149,11 +149,18 @@ public class Exhibition implements Serializable {
     }
 
     public double getGrade() {
+        List<Review> reviews = getReviews();
+        int size = reviews.size();
         double sum = 0;
-        for (Review r : getReviews()) {
+        
+        if(size == 0){
+            return 0;
+        }
+        
+        for (Review r : reviews) {
             sum += r.getGrade();
         }
         
-        return sum / getReviews().size();
+        return sum / size;
     }
 }

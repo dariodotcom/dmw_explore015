@@ -44,7 +44,7 @@
 	box-shadow: none;
 }
 
-#buttonFind{
+#buttonProfile{
 	float: right;
 }
 
@@ -52,18 +52,18 @@
 	float: left;
 }
 
-#buttonFind .icon{
-	background-image: url("/res/icon-find.png");
+#buttonProfile .icon{
+	background-image: url("/res/icon-profile.png");
 }
 
 #buttonMenu .icon{
 	background-image: url("/res/icon-menu.png");
 }
 
-#buttonFind.open .icon{
-	background-image: url("/res/icon-find-green.png");
+#buttonProfile.open .icon{
+	background-image: url("/res/icon-profile-green.png");
 }
 
-#buttonMenu[open] .icon{
+#buttonMenu.open .icon{
 	background-image: url("/res/icon-menu-green.png");
 }

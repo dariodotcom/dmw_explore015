@@ -17,7 +17,6 @@
 		<div id="header">
 			<div class="buttonWrapper">
 				<a id="buttonMenu" class="button" href="#"><span class="icon">&nbsp;</span></a>
-				<a id="buttonFind" class="button" href="#"><span class="icon">&nbsp;</span></a>
 			</div>
 			<div class="logoContainer">
 				<div class="logo">&nbsp;</div>
@@ -29,14 +28,40 @@
 					<div class="homeImage">&nbsp;</div>
 					<div class="welcomeContainer">
 						<div>
-							<p class="intro"> Are you new on Explore? Please <a href="#" class="linkHome" data-local="true"> register</a> and enjoy your visit</p>
+							<p class="intro"> Are you new on Explore? Please <a href="/auth/register" class="linkHome" data-local="true">register</a> and enjoy your visit</p>
 						</div>
 						<div>
-							<p class="intro">Already have an account? <a href="#" class="linkHome" data-local="true">Sign-in</a></p>
+							<p class="intro">Already have an account? <a href="/auth/login" class="linkHome" data-local="true">Sign-in</a></p>
 						</div>
 					</div>		
 				</div>
 				
+				<div id="profileView" class="view">
+					<div class="unloggedPanel">
+						You are not logged in.<br/>
+						<a href="/auth/register" class="linkHome" data-local="true">Register</a><br/>
+						<a href="/auth/login" class="linkHome" data-local="true">Sign-in</a>
+					</div>
+					<div class="loggedPanel">
+						<div class="imageContainer">&nbsp;</div>	
+						<div class="infoContainer">
+							<div class="info">
+								<span class="infoName">Username</span>
+								<span class="infoValue username"></span>
+							</div>
+							<div class="info">
+								<span class="infoName">Name</span>
+								<span class="infoValue name"></span>
+							</div>
+							<div class="info">
+								<span class="infoName">Surname</span>
+								<span class="infoValue surname"></span>
+							</div>
+						</div>
+						<a class="button" href="/auth/logout" data-local="true">Logout</a>
+					</div>
+				</div>
+
 				<div id="loginView" class="view">
 					<form id="loginForm">
 						<div class="inputWrapper">
@@ -142,16 +167,20 @@
 	<div id="menuOverlay" class="overlay">
 		<div class="listContainer" id="menu">
 			<div class="entryContainer">
-				<a class="entry">
+				<a class="entry" data-local="true" href="/">
+					<span class="text">Home</span><span class="arrow">&nbsp;</span></a>
+			</div>
+			<div class="entryContainer">
+				<a class="entry" data-local="true" href="/profile">
 					<span class="text">My Profile</span><span class="arrow">&nbsp;</span></a>
 			</div>
 			<div class="entryContainer">
-				<a class="entry">
-					<span class="text">Exhibitions</span><span class="arrow">&nbsp;</span></a>
+				<a class="entry" data-local="true" href="/search">
+					<span class="text">Search exhibitions</span><span class="arrow">&nbsp;</span></a>
 			</div>
 			<div class="entryContainer">
-				<a class="entry">
-					<span class="text">Tags</span><span class="arrow">&nbsp;</span></a>
+				<a class="entry" data-local="true" href="/top">
+					<span class="text">Top exhibitions</span><span class="arrow">&nbsp;</span></a>
 			</div>
 		</div>
 	</div>

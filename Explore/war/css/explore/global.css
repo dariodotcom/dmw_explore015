@@ -7,7 +7,7 @@ body{
 }
 
 #viewport{
-	position:relative;
+	
 	overflow: hidden;
 }
 
@@ -54,4 +54,12 @@ body{
 	color: #828282;
 	margin: 24px 12px 12px 12px;
 	border-bottom: 1px solid #929292;
+}
+
+.waitingOverlay{
+	background: transparent url("/res/pattern.png") repeat;
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 48px;
 }
