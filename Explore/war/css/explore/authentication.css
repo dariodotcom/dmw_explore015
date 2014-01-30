@@ -81,3 +81,55 @@
 	font-weight: bold;
 	font-size: 18px;
 }
+
+#profileView{
+	padding: 20px;
+}
+
+#profileView .imageContainer{
+	background-image: url("/res/profile.png");
+	background-size: cover;
+	height: 150px;
+	width: 150px;
+	margin: 0 auto;
+}
+
+.infoContainer{
+	margin-top:20px;
+}
+
+.infoContainer .info{
+	padding: 10px;
+	font-size: 18px;
+	border-bottom: 1px solid rgba(0,0,0,.3);
+}
+
+.infoContainer .info .infoName{
+	color: #6d6d6d;
+}
+
+.infoContainer .info .infoValue{
+	font-weight: bold;
+	color: #3c9244;
+	float: right;
+}
+
+#profileView a.button{
+	display: block;
+	margin: 20px auto 0;
+	padding: 20px;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.unloggedPanel{
+	font-size: 18px;
+	color: #6f6f6f;
+	text-align: center;
+	line-height: 30px;
+}
+
+.unloggedPanel a{
+	color: #3c9244;
+	text-decoration: none;
+}

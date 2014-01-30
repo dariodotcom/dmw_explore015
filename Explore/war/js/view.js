@@ -7,10 +7,12 @@ var ViewManager = function _viewManager() {
 	this.views["login"] = $("#loginView");
 	this.views["home"] = $("#homeView");
 	this.views["chart"] = $("#chartView");
+	this.views["profile"] = $("#profileView");
 
 	this.exhibitionView = new ExhibitionView();
 	this.reviewView = new ReviewView();
 	this.chartView = new ChartView();
+	this.profileView = new ProfileView();
 
 	LoginView.init();
 	RegistrationView.init();
@@ -45,6 +47,10 @@ ViewManager.prototype = {
 	showChartView: function _showChartView(){
 		this.chartView.update();
 		this.showView("chart");
+	},
+	showProfile: function _showProfile(){
+		this.profileView.update();
+		this.showView("profile");
 	}
 
 };
@@ -59,6 +65,7 @@ var LoginView = {
 
 	handleLoginSuccess: function _handleLoginSuccess(e){
 		Explore.log(e);
+		Explore.NavigationManager.navigateTo("/profile");
 	},
 
 	init: function _init(){
@@ -102,6 +109,7 @@ var RegistrationView = {
 
 	handleRegistrationSuccess: function _handleRegistrationSuccess(e){
 		Explore.log(e);
+		Explore.ViewManager.showView("home");
 	},
 
 	init: function _init(){
@@ -183,7 +191,7 @@ ExhibitionView.prototype = {
 			this.reviewButton.removeAttr("href");
 			this.reviewButton.hide();
 		} else {
-			this.reviewButton.attr("href", "/exhibition/" + data.id + "/review");
+			this.reviewButton.attr("href", "/exhibition/review/" + data.id + ";" + data.name);
 		}
 	},
 
@@ -212,6 +220,7 @@ ExhibitionView.prototype = {
 	handleReviewLoadSuccess: function _handleReviewLoadSuccess(data){
 		var reviews = data.reviews;
 		var reviewContainer = $("#reviewContainer");
+		reviewContainer.empty();
 
 		if(reviews.length == 0){
 			Explore.log("no reviews to show");
@@ -390,7 +399,7 @@ SearchResult = function(data){
 	htmlElem.find(".name").html(data.name);
 	new Stars(htmlElem.find(".stars"), false, false).setValue(data.grade);
 	var link = htmlElem.find(".entry");
-	link.attr("href","/exhibition/" + data.id);
+	link.attr("href","/exhibition/id/" + data.id);
 	link.click(Explore.captureClick);
 }
 
@@ -447,7 +456,7 @@ ReviewView.prototype = {
 	},
 
 	handleReviewSuccess: function _handleReviewSuccess(){
-		Explore.NavigationManager.navigateTo("/exhibition/" + this.id);
+		Explore.NavigationManager.navigateTo("/exhibition/id/" + this.id);
 	}
 }
 
@@ -506,6 +515,33 @@ TagController.prototype = {
 				e.preventDefault();
 			}
 		}
+	}
+}
+
+var ProfileView = function(){
+	var view = $("#profileView");
+	this.loggedPanel = view.find(".loggedPanel");
+	this.unloggedPanel = view.find(".unloggedPanel");
+	this.name = view.find(".name");
+	this.surname = view.find(".surname");
+	this.username = view.find(".username");
+}
+
+ProfileView.prototype = {
+	update: function(){
+		Api.User.getCurrent(this.onDataReceived.bind(this));
+	},
+	onDataReceived: function _onDataReceived(data){
+		Explore.log(data);
+		if(data.username){
+			this.unloggedPanel.hide();
+			this.name.html(data.name);
+			this.surname.html(data.surname);
+			this.username.html(data.username);
+		} else {
+			this.loggedPanel.hide();
+		}
+		Explore.log(data);
 	}
 }
 
