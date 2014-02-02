@@ -41,15 +41,19 @@
 #checkinBtn > .text{
 	display: inline-block;
 	background-repeat: no-repeat;
-	background-size: 19px 30px;
+	background-size: 30px 30px;
 	background-position: center left;
 	font-weight: bold;
-	padding: 15px 15px 15px 25px;
+	padding: 15px 15px 15px 35px;
 	vertical-align: baseline;
 }
 
 #checkinBtn > .text{
 	background-image: url("/res/checkin.png");
+}
+
+#reviewBtn > .text{
+	background-image: url("/res/review.png");
 }
 
 .review {

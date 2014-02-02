@@ -180,7 +180,12 @@ ExhibitionView.prototype = {
 	tagModel: $("<span class=\"tag\"></span>"),
 	handleCheckin: function _handleCheckIn(id){
 		new Api.Exhibition(id).checkIn(
-			this.updateButtonVisibility.bind(this),
+			function(data){
+				this.checkInButton.click(null);
+				this.checkInButton.hide();
+				this.reviewButton.show();
+				this.reviewButton.attr("href", "/exhibition/review/" + data.id + ";" + data.name);
+			}.bind(this),
 			function(data){
 				Explore.showError(data.type);
 			}
@@ -216,6 +221,7 @@ ExhibitionView.prototype = {
 	},
 
 	updateButtonVisibility: function _updateButtonVisibility(data){
+		Explore.log(data, "Button Visibility Update");
 		if(!data.checkinable){
 			this.checkInButton.click(null);
 			this.checkInButton.hide();
