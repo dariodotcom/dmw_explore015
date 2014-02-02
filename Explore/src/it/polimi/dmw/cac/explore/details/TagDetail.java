@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class TagDetail {
+public class TagDetail implements Comparable<TagDetail>{
 
     private String name;
     private double weight;
@@ -25,6 +25,10 @@ public class TagDetail {
 
     public void setWeight(double weight) {
         this.weight = weight;
+    }
+
+    public int compareTo(TagDetail o) {
+        return Double.compare(o.getWeight(), weight);
     }
 
 }

@@ -63,3 +63,12 @@ body{
 	position: absolute;
 	top: 48px;
 }
+
+.errorContainer{
+	margin: 20px 20px 0 20px;
+	background: #e14e4e;
+	color: rgba(0,0,0,.6);
+	font-weight: bold;
+	padding: 10px;
+	box-shadow: 0 -2px 0 0 rgba(0,0,0,.1) inset;
+}

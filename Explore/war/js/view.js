@@ -58,17 +58,28 @@ ViewManager.prototype = {
 // LoginView
 var LoginView = {
 
+	errorContainer: null,
+		
+	showError: function _showError(msg){
+		this.errorContainer.show();
+		this.errorContainer.html(msg);
+	},
+	
 	handleLoginError: function _handleLoginError(e){
 		var msg = "Login details incorrect.";
-		Explore.showError(msg);
+		this.showError(msg);
 	},
 
 	handleLoginSuccess: function _handleLoginSuccess(e){
 		Explore.log(e);
+		this.errorContainer.hide();
 		Explore.NavigationManager.navigateTo("/profile");
 	},
 
 	init: function _init(){
+		this.errorContainer = $("#loginView .errorContainer");
+		this.errorContainer.hide();
+		
 		var form = $("#loginForm");
 		form.submit(function(e){
 			e.preventDefault();
@@ -79,20 +90,26 @@ var LoginView = {
 			}
 
 			if(loginData.username == "" || loginData.password == ""){
-				Explore.showError("Please fill all forms");
+				this.showError("Please fill all forms");
 				return;
 			}
 
 			Explore.Api.User.login(
 				loginData,
-				LoginView.handleLoginSuccess,
-				LoginView.handleLoginError);
-		});
+				LoginView.handleLoginSuccess.bind(this),
+				LoginView.handleLoginError.bind(this));
+		}.bind(this));
 	}
 }
 
 var RegistrationView = {
-
+	errorContainer: null,
+			
+	showError: function _showError(msg){
+		this.errorContainer.show();
+		this.errorContainer.html(msg);
+	},
+	
 	handleRegistrationError: function _handleRegistrationError(e){
 		var msg;
 
@@ -104,38 +121,47 @@ var RegistrationView = {
 				msg = "Error " + e.type + " occurred";
 		}
 
-		Explore.showError(msg);
+		this.showError(msg);
 	},
 
 	handleRegistrationSuccess: function _handleRegistrationSuccess(e){
 		Explore.log(e);
+		this.errorContainer.hide();
 		Explore.ViewManager.showView("home");
 	},
 
 	init: function _init(){
+		this.errorContainer = $("#registrationView .errorContainer");
+		this.errorContainer.hide();
+		
 		var form = $("#registrationForm");
 		form.submit(function(e){
 			e.preventDefault();
 
-			var registrationData = {
+			var regData = {
 				username: form.find("input[name=username]").val(),
 				name: form.find("input[name=name]").val(),
 				surname: form.find("input[name=surname]").val(),
 				password: form.find("input[name=password]").val()
 			}
 
-			Explore.log(registrationData);
+			if(regData.username == "" || regData.name == "" ||regData.surname == "" || regData.password == ""){
+				this.showError("Please fill in all forms.");
+				return;
+			}
+			
+			Explore.log(regData);
 
-			if(registrationData.password != form.find("input[name=confirmPassword]").val()){
-				Explore.showError("Passwords do not match");
+			if(regData.password != form.find("input[name=confirmPassword]").val()){
+				this.showError("Passwords do not match");
 				return;
 			}
 
 			Explore.Api.User.register(
-				registrationData,
-				RegistrationView.handleRegistrationSuccess,
-				RegistrationView.handleRegistrationError);
-		});
+				regData,
+				RegistrationView.handleRegistrationSuccess.bind(this),
+				RegistrationView.handleRegistrationError.bind(this));
+		}.bind(this));
 	}
 }
 
@@ -146,10 +172,12 @@ var ExhibitionView = function(){
 	this.checkInButton = $("#checkinBtn");
 	this.reviewButton = $("#reviewBtn");
 	this.reviewContainer = $("#reviewContainer");
+	this.tagContainer = $("#description .tags")
 	this.stars = new Stars($("#description .stars"), false, true);
 }
 
 ExhibitionView.prototype = {
+	tagModel: $("<span class=\"tag\"></span>"),
 	handleCheckin: function _handleCheckIn(id){
 		new Api.Exhibition(id).checkIn(
 			this.updateButtonVisibility.bind(this),
@@ -173,9 +201,17 @@ ExhibitionView.prototype = {
 
 		this.name.html(data.name);
 		this.description.html(data.description);
+		this.image.css("background-image", "url(" + data.photoUrl + ")");
 		this.stars.setValue(data.grade);
 		this.stars.setCount(data.reviewCount);
 
+		for(var i = 0; i < data.tags.length; i++){
+			var tag = data.tags[i];
+			var elem = this.tagModel.clone();
+			elem.html("#" + tag.name);
+			this.tagContainer.append(elem);
+		}
+		
 		this.updateButtonVisibility(data);
 	},
 
@@ -397,6 +433,7 @@ ChartView.prototype = {
 SearchResult = function(data){
 	var htmlElem = this.htmlElem = this.model.clone();
 	htmlElem.find(".name").html(data.name);
+	htmlElem.find(".thumbnail").css('background-image', 'url(' + data.photoUrl + ')');
 	new Stars(htmlElem.find(".stars"), false, false).setValue(data.grade);
 	var link = htmlElem.find(".entry");
 	link.attr("href","/exhibition/id/" + data.id);
