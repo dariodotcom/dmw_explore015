@@ -162,6 +162,10 @@ public class ExhibitionDetails extends Details {
         }
         
         Collections.sort(tags);
-        this.tags = tags.subList(0, 7);
+        if(tags.size() <= 6){
+            this.tags = tags;
+        } else {
+            this.tags = tags.subList(0, 6);
+        } 
     }
 }
