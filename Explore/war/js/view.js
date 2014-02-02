@@ -220,6 +220,7 @@ ExhibitionView.prototype = {
 			this.checkInButton.click(null);
 			this.checkInButton.hide();
 		} else {
+			this.checkInButton.show();
 			this.checkInButton.click(this.handleCheckin.bind(this, data.id));
 		}
 
@@ -227,6 +228,7 @@ ExhibitionView.prototype = {
 			this.reviewButton.removeAttr("href");
 			this.reviewButton.hide();
 		} else {
+			this.reviewButton.show();
 			this.reviewButton.attr("href", "/exhibition/review/" + data.id + ";" + data.name);
 		}
 	},
@@ -572,11 +574,13 @@ ProfileView.prototype = {
 		Explore.log(data);
 		if(data.username){
 			this.unloggedPanel.hide();
+			this.loggedPanel.show();
 			this.name.html(data.name);
 			this.surname.html(data.surname);
 			this.username.html(data.username);
 		} else {
 			this.loggedPanel.hide();
+			this.unloggedPanel.show();
 		}
 		Explore.log(data);
 	}
