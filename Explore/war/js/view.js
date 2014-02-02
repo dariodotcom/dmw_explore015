@@ -210,6 +210,7 @@ ExhibitionView.prototype = {
 		this.stars.setValue(data.grade);
 		this.stars.setCount(data.reviewCount);
 
+		this.tagContainer.empty();
 		for(var i = 0; i < data.tags.length; i++){
 			var tag = data.tags[i];
 			var elem = this.tagModel.clone();

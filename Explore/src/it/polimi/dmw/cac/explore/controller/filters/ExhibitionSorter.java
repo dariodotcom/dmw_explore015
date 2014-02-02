@@ -25,7 +25,7 @@ public class ExhibitionSorter implements InMemorySortCriterion {
 
         double g1 = getGrade(exh1), g2 = getGrade(exh2);
 
-        int comparation = Double.compare(g1, g2);
+        int comparation = Double.compare(g2, g1);
 
         if (comparation != 0) {
             return comparation;
