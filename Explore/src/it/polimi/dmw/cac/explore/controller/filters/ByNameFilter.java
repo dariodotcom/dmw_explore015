@@ -19,7 +19,7 @@ public class ByNameFilter implements InMemoryFilterCriterion {
 
         Exhibition e = (Exhibition) model;
 
-        return e.getName().toLowerCase().contains(name);
+        return e.getName().toLowerCase().contains(name.toLowerCase());
     }
 
 }

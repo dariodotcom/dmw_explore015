@@ -1,6 +1,7 @@
 package it.polimi.dmw.cac.explore.details;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import it.polimi.dmw.cac.explore.controller.Coherence;
@@ -141,7 +142,7 @@ public class ExhibitionDetails extends Details {
     }
 
     private void computeTags(Exhibition exhibition) {
-        this.tags = new ArrayList<TagDetail>();
+        List<TagDetail> tags = new ArrayList<TagDetail>();
         double maxWeight = Double.NEGATIVE_INFINITY;
 
         List<Tagging> taggings = exhibition.getTaggingsRef().getModelList();
@@ -159,5 +160,8 @@ public class ExhibitionDetails extends Details {
             tagDetail.setWeight(t.getWeight() / maxWeight);
             tags.add(tagDetail);
         }
+        
+        Collections.sort(tags);
+        this.tags = tags.subList(0, 7);
     }
 }
